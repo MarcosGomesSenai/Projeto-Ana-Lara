@@ -1,0 +1,1395 @@
+/*
+================================================================================
+ARQUIVO: theme.css
+PROJETO: Bloom Maternity - Clínica de Obstetrícia
+DESCRIÇÃO: Estilos temáticos e de identidade visual da marca,
+           incluindo temas sazonais, modos claro/escuro, e variações.
+AUTOR: Bloom Maternity Team
+VERSÃO: 1.0.0
+================================================================================
+*/
+
+/* ==================== TEMA PADRÃO (CLARO) ==================== */
+:root {
+    /* Cores de Superfície */
+    --surface-primary: var(--white);
+    --surface-secondary: var(--gray-100);
+    --surface-tertiary: var(--gray-200);
+    
+    /* Cores de Texto */
+    --text-primary: var(--gray-900);
+    --text-secondary: var(--gray-700);
+    --text-muted: var(--gray-500);
+    --text-inverse: var(--white);
+    
+    /* Cores de Destaque */
+    --brand-primary: var(--pink-primary);
+    --brand-secondary: var(--lilac-primary);
+    --brand-gradient: linear-gradient(135deg, var(--pink-primary), var(--lilac-primary));
+    --brand-gradient-reverse: linear-gradient(135deg, var(--lilac-primary), var(--pink-primary));
+    
+    /* Cores de Feedback */
+    --success-color: #28a745;
+    --error-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    
+    /* Modo Claro */
+    color-scheme: light;
+}
+
+/* ==================== TEMA ESCURO ==================== */
+[data-theme="dark"] {
+    --surface-primary: #1a1a2e;
+    --surface-secondary: #16213e;
+    --surface-tertiary: #0f3460;
+    
+    --text-primary: #ffffff;
+    --text-secondary: #e2e8f0;
+    --text-muted: #94a3b8;
+    --text-inverse: #1a1a2e;
+    
+    --brand-primary: #ff85b3;
+    --brand-secondary: #d4afd4;
+    
+    color-scheme: dark;
+}
+
+[data-theme="dark"] body {
+    background-color: #1a1a2e;
+    color: #ffffff;
+}
+
+[data-theme="dark"] .card,
+[data-theme="dark"] .bg-white {
+    background-color: #16213e !important;
+    color: #e2e8f0;
+}
+
+[data-theme="dark"] .text-muted {
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .bg-light,
+[data-theme="dark"] .bg-light-gradient,
+[data-theme="dark"] .bg-light-pink,
+[data-theme="dark"] .bg-extra-light {
+    background-color: #0f3460 !important;
+}
+
+[data-theme="dark"] .navbar {
+    background-color: #16213e !important;
+}
+
+[data-theme="dark"] .navbar-nav .nav-link {
+    color: #e2e8f0;
+}
+
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select {
+    background-color: #0f3460;
+    border-color: #1e3a8a;
+    color: white;
+}
+
+[data-theme="dark"] .accordion-button {
+    background-color: #16213e;
+    color: #e2e8f0;
+}
+
+[data-theme="dark"] .accordion-body {
+    background-color: #0f3460;
+    color: #e2e8f0;
+}
+
+[data-theme="dark"] .modal-content {
+    background-color: #16213e;
+    color: #e2e8f0;
+}
+
+/* ==================== TEMA OUTONO ==================== */
+[data-theme="autumn"] {
+    --brand-primary: #e08e6c;
+    --brand-secondary: #cd9775;
+    --brand-gradient: linear-gradient(135deg, #e08e6c, #cd9775);
+}
+
+[data-theme="autumn"] .text-gradient {
+    background: linear-gradient(135deg, #e08e6c, #cd9775);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+[data-theme="autumn"] .btn-gradient {
+    background: linear-gradient(135deg, #e08e6c, #cd9775) !important;
+}
+
+[data-theme="autumn"] .bg-gradient-pink {
+    background: linear-gradient(135deg, #e08e6c, #cd9775) !important;
+}
+
+/* ==================== TEMA INVERNO ==================== */
+[data-theme="winter"] {
+    --brand-primary: #6ca4e0;
+    --brand-secondary: #8bb5e6;
+    --brand-gradient: linear-gradient(135deg, #6ca4e0, #8bb5e6);
+}
+
+[data-theme="winter"] .text-gradient {
+    background: linear-gradient(135deg, #6ca4e0, #8bb5e6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+[data-theme="winter"] .btn-gradient {
+    background: linear-gradient(135deg, #6ca4e0, #8bb5e6) !important;
+}
+
+[data-theme="winter"] .bg-gradient-pink {
+    background: linear-gradient(135deg, #6ca4e0, #8bb5e6) !important;
+}
+
+/* ==================== TEMA PRIMAVERA ==================== */
+[data-theme="spring"] {
+    --brand-primary: #8bc48a;
+    --brand-secondary: #a8d4a5;
+    --brand-gradient: linear-gradient(135deg, #8bc48a, #a8d4a5);
+}
+
+[data-theme="spring"] .text-gradient {
+    background: linear-gradient(135deg, #8bc48a, #a8d4a5);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+[data-theme="spring"] .btn-gradient {
+    background: linear-gradient(135deg, #8bc48a, #a8d4a5) !important;
+}
+
+[data-theme="spring"] .bg-gradient-pink {
+    background: linear-gradient(135deg, #8bc48a, #a8d4a5) !important;
+}
+
+/* ==================== TEMA VERÃO ==================== */
+[data-theme="summer"] {
+    --brand-primary: #f4a261;
+    --brand-secondary: #e9c46a;
+    --brand-gradient: linear-gradient(135deg, #f4a261, #e9c46a);
+}
+
+[data-theme="summer"] .text-gradient {
+    background: linear-gradient(135deg, #f4a261, #e9c46a);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+[data-theme="summer"] .btn-gradient {
+    background: linear-gradient(135deg, #f4a261, #e9c46a) !important;
+}
+
+[data-theme="summer"] .bg-gradient-pink {
+    background: linear-gradient(135deg, #f4a261, #e9c46a) !important;
+}
+
+/* ==================== ANIMAÇÕES TEMÁTICAS ==================== */
+.bg-gradient-pink {
+    background: var(--brand-gradient) !important;
+}
+
+.btn-gradient {
+    background: var(--brand-gradient) !important;
+}
+
+.text-gradient {
+    background: var(--brand-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* ==================== EFEITO GLASSMORPHISM ==================== */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--border-radius-lg);
+}
+
+[data-theme="dark"] .glass-effect {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ==================== EFEITO NEUMORPHISM ==================== */
+.neumorph-card {
+    background: var(--surface-primary);
+    border-radius: var(--border-radius-lg);
+    box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.05),
+                -8px -8px 16px rgba(255, 255, 255, 0.7);
+}
+
+[data-theme="dark"] .neumorph-card {
+    box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.3),
+                -8px -8px 16px rgba(255, 255, 255, 0.05);
+}
+
+/* ==================== PARTICLES BACKGROUND ==================== */
+.particles-bg {
+    position: relative;
+    overflow: hidden;
+}
+
+.particles-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(circle, var(--brand-primary) 1px, transparent 1px);
+    background-size: 30px 30px;
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+/* ==================== WAVE DIVIDERS ==================== */
+.wave-divider {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.wave-divider svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 80px;
+}
+
+/* ==================== ANIMATED GRADIENT BORDER ==================== */
+.animated-border {
+    position: relative;
+    background: var(--surface-primary);
+    border-radius: var(--border-radius-lg);
+    z-index: 1;
+}
+
+.animated-border::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: var(--brand-gradient);
+    border-radius: calc(var(--border-radius-lg) + 2px);
+    z-index: -1;
+    animation: borderRotate 3s linear infinite;
+}
+
+@keyframes borderRotate {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+/* ==================== HOVER GLOW EFFECT ==================== */
+.hover-glow {
+    transition: all var(--transition-base);
+}
+
+.hover-glow:hover {
+    box-shadow: 0 0 20px rgba(255, 107, 157, 0.5);
+    transform: translateY(-5px);
+}
+
+/* ==================== TEXT REVEAL ANIMATION ==================== */
+.text-reveal {
+    overflow: hidden;
+    position: relative;
+}
+
+.text-reveal::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--brand-primary);
+    transform: translateX(-100%);
+    animation: revealText 0.5s ease forwards;
+}
+
+@keyframes revealText {
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* ==================== FLOATING ANIMATION CARDS ==================== */
+.floating-card {
+    animation: floatCard 3s ease-in-out infinite;
+}
+
+@keyframes floatCard {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* ==================== RIPPLE EFFECT ==================== */
+.ripple-effect {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.7);
+    transform: scale(0);
+    animation: ripple 0.6s ease-out;
+    pointer-events: none;
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(10);
+        opacity: 0;
+    }
+}
+
+/* ==================== SCROLL REVEAL CLASSES ==================== */
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.reveal-on-scroll.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==================== LOADER ANIMATION ==================== */
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 4px solid var(--gray-200);
+    border-top: 4px solid var(--brand-primary);
+    border-radius: 50%;
+    animation: loaderSpin 1s linear infinite;
+}
+
+@keyframes loaderSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ==================== SKELETON LOADER ==================== */
+.skeleton-loader {
+    background: linear-gradient(
+        90deg,
+        var(--gray-200) 25%,
+        var(--gray-100) 50%,
+        var(--gray-200) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeletonShimmer 1.5s infinite;
+}
+
+@keyframes skeletonShimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* ==================== CONFETTI EFFECT ==================== */
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background-color: var(--brand-primary);
+    position: absolute;
+    animation: confettiFall 3s linear forwards;
+}
+
+@keyframes confettiFall {
+    to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ==================== PROGRESS BAR THEMED ==================== */
+.progress-bar-themed {
+    background: var(--brand-gradient);
+    border-radius: var(--border-radius-pill);
+}
+
+/* ==================== TOOLTIP THEMED ==================== */
+.tooltip-themed {
+    background: var(--brand-primary);
+    color: white;
+    border-radius: var(--border-radius-sm);
+    padding: 5px 10px;
+    font-size: 0.875rem;
+}
+
+/* ==================== POPOVER THEMED ==================== */
+.popover-themed {
+    border-color: var(--brand-primary);
+    border-radius: var(--border-radius-md);
+}
+
+.popover-themed .popover-header {
+    background: var(--brand-primary);
+    color: white;
+    border-bottom: none;
+}
+
+/* ==================== ALERT THEMED ==================== */
+.alert-themed {
+    background: linear-gradient(135deg, var(--pink-extra-light), var(--lilac-light));
+    border: none;
+    border-radius: var(--border-radius-md);
+    color: var(--gray-800);
+}
+
+/* ==================== SWITCH THEME BUTTON ==================== */
+.theme-switch {
+    position: fixed;
+    bottom: 30px;
+    right: 100px;
+    width: 45px;
+    height: 45px;
+    background: var(--surface-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-lg);
+    z-index: var(--z-fixed);
+    transition: all var(--transition-base);
+}
+
+.theme-switch:hover {
+    transform: scale(1.1);
+}
+
+.theme-switch i {
+    font-size: 1.5rem;
+    color: var(--brand-primary);
+}
+
+/* ==================== RESPONSIVE THEME ADJUSTMENTS ==================== */
+@media (max-width: 768px) {
+    .theme-switch {
+        bottom: 20px;
+        right: 80px;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .theme-switch i {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .theme-switch {
+        bottom: 20px;
+        right: 70px;
+        width: 35px;
+        height: 35px;
+    }
+}
+
+/* ==================== THEME TRANSITION ==================== */
+* {
+    transition: background-color 0.3s ease, 
+                border-color 0.3s ease,
+                color 0.2s ease;
+}
+
+/* ==================== CUSTOM SCROLLBAR THEMED ==================== */
+::-webkit-scrollbar-track {
+    background: var(--surface-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--brand-gradient);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--brand-primary);
+}
+
+/* ==================== SELECTION THEMED ==================== */
+::selection {
+    background: var(--brand-primary);
+    color: white;
+}
+
+::-moz-selection {
+    background: var(--brand-primary);
+    color: white;
+}
+
+/* ==================== PLACEHOLDER THEMED ==================== */
+::placeholder {
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
+::-webkit-input-placeholder {
+    color: var(--text-muted);
+}
+
+:-ms-input-placeholder {
+    color: var(--text-muted);
+}
+
+/* ==================== FOCUS RING THEMED ==================== */
+:focus-visible {
+    outline: 2px solid var(--brand-primary);
+    outline-offset: 2px;
+}
+
+/* ==================== DISABLED STATE THEMED ==================== */
+.disabled-themed {
+    opacity: 0.6;
+    cursor: not-allowed;
+    filter: grayscale(0.2);
+}
+
+/* ==================== PRINT THEME ==================== */
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    .theme-switch,
+    .btn-gradient,
+    .whatsapp-float {
+        display: none !important;
+    }
+    
+    .text-gradient {
+        background: none !important;
+        color: black !important;
+    }
+}
+
+/* ==================== HIGH CONTRAST MODE ==================== */
+@media (prefers-contrast: high) {
+    :root {
+        --brand-primary: #ff0000;
+        --brand-secondary: #cc0000;
+    }
+    
+    .btn-gradient {
+        background: var(--brand-primary) !important;
+    }
+    
+    .card {
+        border: 2px solid black !important;
+    }
+}
+
+/* ==================== REDUCED MOTION ==================== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .floating-card,
+    .animated-border::before {
+        animation: none !important;
+    }
+    
+    .reveal-on-scroll {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
+/* ==================== TEMA PERSONALIZADO (USER PREFERENCE) ==================== */
+@media (prefers-color-scheme: dark) {
+    /* Aplica tema escuro automaticamente se preferido pelo sistema */
+    body:not([data-theme="light"]) {
+        background-color: #1a1a2e;
+        color: #ffffff;
+    }
+}
+
+/* ==================== TEMA DE ALTO CONTRASTE PARA ACESSIBILIDADE ==================== */
+.high-contrast {
+    --brand-primary: #0000ff;
+    --brand-secondary: #0000cc;
+    --surface-primary: #ffffff;
+    --surface-secondary: #f0f0f0;
+    --text-primary: #000000;
+    --text-secondary: #333333;
+}
+
+.high-contrast .card {
+    border: 2px solid #000000;
+}
+
+.high-contrast .btn {
+    border: 2px solid #000000;
+}
+
+/* ==================== TEMA ESCURO COM CONTRASTE ==================== */
+.dark-contrast {
+    --surface-primary: #000000;
+    --surface-secondary: #1a1a1a;
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --brand-primary: #ffff00;
+    --brand-secondary: #ffcc00;
+}
+
+/* ==================== TEMA AZUL (CORPORATIVO) ==================== */
+[data-theme="corporate"] {
+    --brand-primary: #2c5f8a;
+    --brand-secondary: #4a8bb5;
+    --brand-gradient: linear-gradient(135deg, #2c5f8a, #4a8bb5);
+}
+
+/* ==================== TEMA NATUREZA ==================== */
+[data-theme="nature"] {
+    --brand-primary: #5a8f5a;
+    --brand-secondary: #8bb58b;
+    --brand-gradient: linear-gradient(135deg, #5a8f5a, #8bb58b);
+}
+
+/* ==================== TEMA LUXO (DOURADO) ==================== */
+[data-theme="luxury"] {
+    --brand-primary: #c9a03d;
+    --brand-secondary: #d4b35a;
+    --brand-gradient: linear-gradient(135deg, #c9a03d, #d4b35a);
+}
+
+/* ==================== TEMA ROSA CLÁSSICO ==================== */
+[data-theme="classic"] {
+    --brand-primary: #d46a8c;
+    --brand-secondary: #e68aa8;
+    --brand-gradient: linear-gradient(135deg, #d46a8c, #e68aa8);
+}
+
+/* ==================== APPLY THEME FUNCTION ==================== */
+/* JavaScript para aplicar temas:
+function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+}
+*/
+
+/* === BLOOM CORREÇÕES FINAIS: navbar, carrossel, unidades e modo escuro === */
+.navbar { min-height: 58px; padding-top: .35rem !important; padding-bottom: .35rem !important; }
+.navbar .container { align-items: center; }
+.brand-logo-img { height: 42px; width: auto; display: block; object-fit: contain; }
+.navbar-nav .nav-link { font-size: .88rem; padding: .45rem .65rem !important; border-radius: 999px; }
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active { background: var(--pink-extra-light); color: var(--pink-primary) !important; }
+#userMenu .btn { padding: .42rem .8rem !important; font-size: .82rem; }
+.doctors-carousel-wrapper { padding: 0 56px; }
+.doctors-carousel-container { overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; }
+.doctors-track { display: flex; flex-wrap: nowrap; gap: 24px; align-items: stretch; }
+.doctor-card { flex: 0 0 300px; width: 300px; margin-right: 0; scroll-snap-align: start; }
+.doctor-image-wrapper img { width: 100%; height: 280px; object-fit: cover; object-position: center top; }
+.carousel-nav-btn:disabled { opacity: .35; cursor: not-allowed; transform: translateY(-50%) scale(.96); }
+.transport-section .row { align-items: stretch; }
+.transport-card { min-height: 190px; border: 1px solid rgba(255,107,157,.13); }
+.transport-card p { margin-bottom: 0; }
+@media (max-width: 991.98px) {
+  .brand-logo-img { height: 38px; }
+  .navbar-collapse { padding-top: .75rem; }
+  .doctor-card { flex-basis: 280px; width: 280px; }
+}
+@media (max-width: 575.98px) {
+  .doctors-carousel-wrapper { padding: 0 38px; }
+  .doctor-card { flex-basis: calc(100vw - 96px); width: calc(100vw - 96px); }
+  .carousel-nav-btn { width: 36px; height: 36px; }
+}
+[data-theme="dark"] body,
+[data-theme="dark"] main { background: #101827 !important; color: var(--text-primary) !important; }
+[data-theme="dark"] p,
+[data-theme="dark"] .lead,
+[data-theme="dark"] .card-text,
+[data-theme="dark"] .small { color: var(--text-secondary) !important; }
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6,
+[data-theme="dark"] .fw-bold,
+[data-theme="dark"] .fw-semibold { color: var(--text-primary) !important; }
+[data-theme="dark"] .card,
+[data-theme="dark"] .transport-card,
+[data-theme="dark"] .insurance-card,
+[data-theme="dark"] .unit-card,
+[data-theme="dark"] .exam-item,
+[data-theme="dark"] .table,
+[data-theme="dark"] .dropdown-menu { background-color: #16213e !important; color: var(--text-primary) !important; border-color: rgba(255,255,255,.12) !important; }
+[data-theme="dark"] .dropdown-item { color: var(--text-secondary) !important; }
+[data-theme="dark"] .dropdown-item:hover { background-color: #0f3460 !important; color: #fff !important; }
+[data-theme="dark"] .navbar-nav .nav-link:hover,
+[data-theme="dark"] .navbar-nav .nav-link.active { background: rgba(255,133,179,.16); color: var(--brand-primary) !important; }
+[data-theme="dark"] .bg-white { background-color: #16213e !important; }
+[data-theme="dark"] .bg-light,
+[data-theme="dark"] .bg-light-gradient,
+[data-theme="dark"] .bg-light-pink,
+[data-theme="dark"] .bg-extra-light { background: #0f172a !important; }
+[data-theme="dark"] .text-dark { color: #fff !important; }
+
+
+/* === BLOOM AJUSTES FINAIS 2: logo, hero, cards médicos e botões === */
+.hero-carousel-section {
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden;
+}
+.hero-carousel-section .carousel,
+.hero-carousel-section .carousel-inner,
+.hero-carousel-section .carousel-item {
+    margin: 0 !important;
+}
+.hero-carousel-section .hero-slide {
+    min-height: calc(100vh - 74px);
+    padding: 0 !important;
+}
+.hero-carousel-section .min-vh-100 {
+    min-height: calc(100vh - 74px) !important;
+}
+.navbar {
+    min-height: 74px !important;
+    padding-top: .28rem !important;
+    padding-bottom: .28rem !important;
+}
+.brand-logo-img {
+    height: 62px !important;
+    max-width: 170px;
+    object-fit: contain;
+}
+.navbar-brand {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+.doctors-carousel-wrapper {
+    padding: 0 72px !important;
+}
+.doctors-carousel-container {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 6px;
+    padding: 0 6px 20px !important;
+}
+.doctors-track {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+    gap: 24px !important;
+}
+.doctor-card {
+    flex: 0 0 320px !important;
+    width: 320px !important;
+    min-width: 320px !important;
+    display: flex !important;
+    scroll-snap-align: start;
+}
+.doctor-card .card {
+    width: 100%;
+    min-height: 665px;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden;
+}
+.doctor-card .doctor-image-wrapper,
+.doctor-card .doctor-image-wrapper img {
+    height: 300px !important;
+    min-height: 300px !important;
+}
+.doctor-card .card-body {
+    flex: 1 1 auto;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start;
+}
+.doctor-card .card-title {
+    min-height: 3.1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.15;
+}
+.doctor-card .card-text {
+    min-height: 4.8em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.doctor-card .btn {
+    margin-top: auto !important;
+}
+.doctor-card-item .card {
+    height: 100%;
+    min-height: 650px;
+}
+.doctor-card-item .card-body {
+    display: flex;
+    flex-direction: column;
+}
+.doctor-card-item .card-text {
+    min-height: 4.2em;
+}
+.doctor-card-item .d-flex.gap-2 {
+    margin-top: auto !important;
+}
+.carousel-nav-btn {
+    z-index: 5;
+}
+#btnMoreReviews:not(:disabled) {
+    cursor: pointer;
+}
+@media (max-width: 991.98px) {
+    .brand-logo-img { height: 54px !important; }
+    .navbar { min-height: 66px !important; }
+    .hero-carousel-section .hero-slide,
+    .hero-carousel-section .min-vh-100 { min-height: calc(100vh - 66px) !important; }
+    .doctors-carousel-wrapper { padding: 0 54px !important; }
+    .doctor-card { flex-basis: 300px !important; width: 300px !important; min-width: 300px !important; }
+}
+@media (max-width: 575.98px) {
+    .brand-logo-img { height: 48px !important; }
+    .doctors-carousel-wrapper { padding: 0 42px !important; }
+    .doctor-card { flex-basis: calc(100vw - 96px) !important; width: calc(100vw - 96px) !important; min-width: calc(100vw - 96px) !important; }
+    .doctor-card .card { min-height: 630px; }
+}
+[data-theme="dark"] .doctor-card .card,
+[data-theme="dark"] .doctor-card-item .card,
+[data-theme="dark"] .doctor-details-section .card,
+[data-theme="dark"] .availability-section .card,
+[data-theme="dark"] .doctor-hero-section {
+    background-color: #16213e !important;
+    color: var(--text-primary) !important;
+}
+[data-theme="dark"] .text-muted,
+[data-theme="dark"] .doctor-card .card-text,
+[data-theme="dark"] .doctor-card-item .card-text,
+[data-theme="dark"] .review-item p,
+[data-theme="dark"] .review-item small {
+    color: #cbd5e1 !important;
+}
+
+
+/* === BLOOM FIX V3: navbar fixa visível, logo maior e carrossel funcional === */
+html, body { overflow-x: hidden; }
+.navbar.bloom-navbar, .navbar { position: sticky; top: 0; z-index: 1040; }
+.navbar .container { min-height: 64px; }
+.brand-logo-img { height: 58px !important; width: auto !important; max-width: 190px !important; object-fit: contain !important; }
+.hero-carousel-section { margin-top: 0 !important; }
+.doctors-carousel-wrapper { position: relative !important; padding: 0 58px !important; }
+.doctors-carousel-container { width: 100% !important; overflow-x: auto !important; overflow-y: hidden !important; scroll-behavior: smooth !important; scrollbar-width: none !important; padding: 0 4px 18px !important; }
+.doctors-carousel-container::-webkit-scrollbar { display: none !important; }
+.doctors-track { display: flex !important; flex-wrap: nowrap !important; gap: 24px !important; align-items: stretch !important; width: max-content !important; min-width: 100% !important; }
+.doctor-card { flex: 0 0 318px !important; width: 318px !important; min-width: 318px !important; max-width: 318px !important; margin: 0 !important; display: flex !important; }
+.doctor-card .card { width: 100% !important; min-height: 660px !important; display: flex !important; flex-direction: column !important; }
+.doctor-card .doctor-image-wrapper { height: 300px !important; min-height: 300px !important; overflow: hidden !important; }
+.doctor-card .doctor-image-wrapper img { height: 300px !important; width: 100% !important; object-fit: cover !important; object-position: center top !important; }
+.doctor-card .card-body { flex: 1 1 auto !important; display: flex !important; flex-direction: column !important; }
+.doctor-card .card-title { min-height: 3.2em !important; line-height: 1.15 !important; display: flex !important; align-items: center !important; justify-content: center !important; }
+.doctor-card .card-text { min-height: 4.5em !important; display: flex !important; align-items: center !important; justify-content: center !important; }
+.doctor-card .btn { margin-top: auto !important; }
+.carousel-nav-btn { z-index: 20 !important; top: 50% !important; }
+.carousel-nav-btn:disabled { opacity: .35 !important; cursor: not-allowed !important; }
+@media (max-width: 991.98px) {
+  .brand-logo-img { height: 50px !important; }
+  .doctors-carousel-wrapper { padding: 0 48px !important; }
+  .doctor-card { flex-basis: 300px !important; width: 300px !important; min-width: 300px !important; max-width: 300px !important; }
+}
+@media (max-width: 575.98px) {
+  .brand-logo-img { height: 46px !important; }
+  .doctors-carousel-wrapper { padding: 0 38px !important; }
+  .doctor-card { flex-basis: calc(100vw - 88px) !important; width: calc(100vw - 88px) !important; min-width: calc(100vw - 88px) !important; max-width: calc(100vw - 88px) !important; }
+  .doctor-card .card { min-height: 630px !important; }
+}
+
+
+/* === BLOOM FIX V4: legibilidade, boxes alinhadas, hover suave e footer sem linha branca === */
+:root {
+    --pink-primary: #ee82aa;
+    --pink-primary-dark: #d96d95;
+    --pink-light: #f8d2df;
+    --pink-extra-light: #fff4f8;
+    --lilac-primary: #cdb2d6;
+    --lilac-light: #eadcec;
+    --gray-500: #8b95a7;
+    --gray-600: #5e6978;
+    --gray-700: #3f4b59;
+    --gray-800: #263140;
+}
+
+body {
+    color: var(--gray-800) !important;
+}
+
+p,
+.lead,
+small,
+.small,
+.text-muted,
+.table,
+.table td,
+.table th,
+li,
+label,
+.accordion-body,
+.card p {
+    color: var(--gray-600) !important;
+}
+
+h1, h2, h3, h4, h5, h6,
+.fw-bold,
+.fw-semibold,
+.nav-link,
+.accordion-button,
+.table thead th,
+.footer h2,
+.footer h5,
+.footer h6,
+.modal-title {
+    color: var(--gray-800);
+}
+
+.bg-gradient-pink,
+.page-header.bg-gradient-pink,
+.cta-final,
+.telemed-hero-section {
+    background: linear-gradient(135deg, #f090b3, #ceb0d7) !important;
+}
+
+.telemed-hero-section .lead,
+.cta-final .lead,
+.page-header .lead,
+.page-header p,
+.telemed-hero-section p,
+.cta-final p {
+    color: rgba(255, 255, 255, 0.94) !important;
+}
+
+.footer {
+    margin-top: 0 !important;
+    border-top: none !important;
+}
+
+.footer::before {
+    display: none !important;
+}
+
+.footer .form-control,
+.footer input.form-control {
+    background: #ffffff !important;
+    color: #253041 !important;
+    border: 1px solid #d7deea !important;
+    box-shadow: none !important;
+}
+
+.footer .form-control::placeholder,
+.footer input::placeholder {
+    color: #7b8798 !important;
+    opacity: 1 !important;
+}
+
+.footer .text-white-50,
+.footer p,
+.footer span,
+.footer li,
+.footer .small,
+.footer a.text-white-50 {
+    color: rgba(255,255,255,.72) !important;
+}
+
+.footer a.text-white-50:hover,
+.footer .footer-links a:hover {
+    color: #ffb8d1 !important;
+}
+
+.services-categories [data-category] {
+    background: #ffffff !important;
+    color: var(--pink-primary) !important;
+    border: 1px solid #efc2d2 !important;
+    box-shadow: none !important;
+}
+
+.services-categories [data-category]:hover,
+.services-categories [data-category]:focus {
+    background: var(--pink-extra-light) !important;
+    color: var(--pink-primary-dark) !important;
+    border-color: #eab4c8 !important;
+    box-shadow: 0 8px 18px rgba(238, 130, 170, 0.16) !important;
+}
+
+.services-categories [data-category].active-category,
+.services-categories [data-category]:active {
+    background: #ffffff !important;
+    color: var(--pink-primary) !important;
+}
+
+.service-item,
+.benefits-section .col-md-4,
+.specialties-section .col-lg-3,
+.pricing-section .col-md-5,
+.planos-grid .col-lg-3,
+.planos-grid .col-md-6 {
+    display: flex;
+}
+
+.service-card,
+.benefit-card,
+.step-card,
+.specialty-card,
+.price-card,
+.testimonial-card,
+.insurance-card,
+.unit-card {
+    width: 100% !important;
+    min-height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    border-radius: 1.5rem !important;
+    border: 1px solid #e6e8ee !important;
+    background: #ffffff !important;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06) !important;
+}
+
+.service-card {
+    overflow: hidden !important;
+}
+
+.service-card:hover,
+.benefit-card:hover,
+.specialty-card:hover,
+.insurance-card:hover,
+.unit-card:hover,
+.price-card:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: 0 18px 36px rgba(15, 23, 42, 0.10) !important;
+    border-color: #efc7d6 !important;
+}
+
+.service-card:hover {
+    background: #fff9fb !important;
+}
+
+.service-card:active,
+.service-card:focus-within {
+    background: #ffffff !important;
+    border-color: #e6e8ee !important;
+}
+
+.service-card .card-body {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.85rem !important;
+    min-height: 330px !important;
+}
+
+.service-card .service-info {
+    margin-top: auto !important;
+}
+
+.service-card .d-flex.gap-2 {
+    margin-top: auto !important;
+    align-items: center !important;
+}
+
+.service-card .btn {
+    min-height: 52px !important;
+}
+
+.service-card .btn-outline-pink {
+    flex: 0 0 74px !important;
+    max-width: 74px !important;
+}
+
+.service-card h4 {
+    font-size: clamp(1.55rem, 2vw, 2.15rem) !important;
+    line-height: 1.16 !important;
+    color: #253041 !important;
+    min-height: 2.5em !important;
+    margin-bottom: 0 !important;
+}
+
+.service-card p.text-muted {
+    color: #667085 !important;
+    min-height: 5.7em !important;
+    margin-bottom: 0 !important;
+}
+
+.service-card small,
+.service-card .service-info small {
+    color: #6b7280 !important;
+    font-weight: 500 !important;
+}
+
+.service-card .badge.bg-pink {
+    background: #f2a9c4 !important;
+    color: #ffffff !important;
+}
+
+#serviceModal .modal-content {
+    border-radius: 1.5rem !important;
+}
+
+#serviceModal .modal-body .row > div {
+    display: flex !important;
+}
+
+#serviceModal .modal-body .bg-light-pink {
+    width: 100% !important;
+    min-height: 132px !important;
+    padding: 1rem !important;
+    border-radius: 1rem !important;
+    background: #fff4f8 !important;
+    border: 1px solid #f0dbe4 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+}
+
+#serviceModal .modal-body .bg-light-pink p {
+    margin-bottom: 0 !important;
+}
+
+.step-card,
+.specialty-card,
+.testimonial-card,
+.price-card,
+.benefit-card {
+    padding: 1.75rem !important;
+}
+
+.step-card h5,
+.specialty-card h5,
+.benefit-card h4,
+.price-card h3,
+.testimonial-card h6 {
+    color: #253041 !important;
+}
+
+.benefit-card p,
+.step-card p,
+.specialty-card p,
+.price-card p,
+.testimonial-card p,
+.requirements-section small,
+.requirements-section li,
+.requirements-section p {
+    color: #667085 !important;
+}
+
+.price-card ul li,
+.requirements-section strong,
+.requirements-section h3 {
+    color: #253041 !important;
+}
+
+.price-card.bg-gradient-pink,
+.price-card.bg-gradient-pink h3,
+.price-card.bg-gradient-pink p,
+.price-card.bg-gradient-pink li,
+.price-card.bg-gradient-pink .fs-5,
+.price-card.bg-gradient-pink .display-1 {
+    color: #ffffff !important;
+}
+
+.benefit-icon,
+.insurance-logo {
+    background: #fde6ee !important;
+}
+
+.telemedicina-page .benefit-icon i,
+.benefit-icon i,
+.insurance-logo i,
+.specialty-card i,
+.step-card i {
+    color: var(--pink-primary) !important;
+}
+
+.accordion-button {
+    color: #253041 !important;
+}
+
+.accordion-button:not(.collapsed) {
+    background: #fff4f8 !important;
+    color: var(--pink-primary-dark) !important;
+}
+
+.table td,
+.table th,
+.table tbody tr,
+.table thead,
+.table-hover tbody tr:hover {
+    color: #425164 !important;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #fff6fa !important;
+}
+
+.card-header.bg-gradient-pink h3,
+.card-header.bg-gradient-pink {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] body {
+    background-color: #0f172a !important;
+    color: #e5edf7 !important;
+}
+
+[data-theme="dark"] p,
+[data-theme="dark"] .lead,
+[data-theme="dark"] small,
+[data-theme="dark"] .small,
+[data-theme="dark"] .text-muted,
+[data-theme="dark"] li,
+[data-theme="dark"] label,
+[data-theme="dark"] .accordion-body,
+[data-theme="dark"] .table td,
+[data-theme="dark"] .table th {
+    color: #d5deea !important;
+}
+
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6,
+[data-theme="dark"] .fw-bold,
+[data-theme="dark"] .fw-semibold,
+[data-theme="dark"] .accordion-button,
+[data-theme="dark"] .nav-link {
+    color: #f8fbff !important;
+}
+
+[data-theme="dark"] .service-card,
+[data-theme="dark"] .benefit-card,
+[data-theme="dark"] .step-card,
+[data-theme="dark"] .specialty-card,
+[data-theme="dark"] .price-card,
+[data-theme="dark"] .testimonial-card,
+[data-theme="dark"] .insurance-card,
+[data-theme="dark"] .unit-card,
+[data-theme="dark"] .card,
+[data-theme="dark"] .bg-white {
+    background: #16213e !important;
+    border-color: #2b3857 !important;
+    color: #eef4fb !important;
+}
+
+[data-theme="dark"] .service-card:hover,
+[data-theme="dark"] .benefit-card:hover,
+[data-theme="dark"] .step-card:hover,
+[data-theme="dark"] .specialty-card:hover,
+[data-theme="dark"] .price-card:hover,
+[data-theme="dark"] .insurance-card:hover,
+[data-theme="dark"] .unit-card:hover {
+    background: #1b2848 !important;
+    border-color: #46608f !important;
+}
+
+[data-theme="dark"] .service-card h4,
+[data-theme="dark"] .benefit-card h4,
+[data-theme="dark"] .step-card h5,
+[data-theme="dark"] .specialty-card h5,
+[data-theme="dark"] .price-card h3,
+[data-theme="dark"] .testimonial-card h6,
+[data-theme="dark"] .price-card ul li,
+[data-theme="dark"] .requirements-section strong,
+[data-theme="dark"] .requirements-section h3,
+[data-theme="dark"] .table thead th {
+    color: #f8fbff !important;
+}
+
+[data-theme="dark"] .service-card .badge.bg-pink,
+[data-theme="dark"] .benefit-icon,
+[data-theme="dark"] .insurance-logo {
+    background: rgba(238,130,170,.16) !important;
+}
+
+[data-theme="dark"] .footer .form-control,
+[data-theme="dark"] .footer input.form-control {
+    background: #ffffff !important;
+    color: #223046 !important;
+}
+
+[data-theme="dark"] .accordion-button {
+    background: #16213e !important;
+}
+
+[data-theme="dark"] .accordion-button:not(.collapsed) {
+    background: #1f335d !important;
+    color: #ffd4e2 !important;
+}
+
+@media (max-width: 767.98px) {
+    .service-card .card-body {
+        min-height: auto !important;
+    }
+    .service-card p.text-muted,
+    .service-card h4 {
+        min-height: auto !important;
+    }
+}
+
+
+/* === BLOOM FIX V5: filtros da página de médicos funcionando e legíveis === */
+#filterButtons .filter-btn {
+    cursor: pointer !important;
+    user-select: none !important;
+}
+#filterButtons .filter-btn.btn-pink,
+#filterButtons .filter-btn.active {
+    background: var(--pink-primary) !important;
+    color: #ffffff !important;
+    border-color: var(--pink-primary) !important;
+}
+#filterButtons .filter-btn.btn-outline-pink:not(.active) {
+    background: #ffffff !important;
+    color: var(--pink-primary) !important;
+    border-color: var(--pink-primary) !important;
+}
+#filterButtons .filter-btn.btn-outline-pink:not(.active):hover {
+    background: var(--pink-extra-light) !important;
+    color: var(--pink-primary-dark) !important;
+}
+[data-theme="dark"] .filters-section {
+    background: #16213e !important;
+}
+[data-theme="dark"] #filterButtons .filter-btn.btn-outline-pink:not(.active) {
+    background: #0f172a !important;
+    color: #ffd3e3 !important;
+    border-color: #ee82aa !important;
+}

@@ -1,0 +1,929 @@
+/*
+================================================================================
+ARQUIVO: main.css
+PROJETO: Bloom Maternity - Clínica de Obstetrícia
+DESCRIÇÃO: Estilos principais do site, incluindo reset, tipografia, 
+           cores globais, e estilos base da aplicação.
+AUTOR: Bloom Maternity Team
+VERSÃO: 1.0.0
+================================================================================
+*/
+
+/* ==================== IMPORTAÇÕES ==================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ==================== RESET E VARIÁVEIS GLOBAIS ==================== */
+:root {
+    /* Cores Principais - Paleta Bloom Maternity */
+    --pink-primary: #ff6b9d;
+    --pink-primary-dark: #e8558b;
+    --pink-light: #ffb6c6;
+    --pink-extra-light: #ffe4ec;
+    --lilac-primary: #c8a2c8;
+    --lilac-light: #e6d5e6;
+    --lilac-extra-light: #f5eef5;
+    --white: #ffffff;
+    --black: #000000;
+    --gray-100: #f8f9fa;
+    --gray-200: #e9ecef;
+    --gray-300: #dee2e6;
+    --gray-400: #ced4da;
+    --gray-500: #adb5bd;
+    --gray-600: #6c757d;
+    --gray-700: #495057;
+    --gray-800: #343a40;
+    --gray-900: #212529;
+    
+    /* Cores de Status */
+    --success: #28a745;
+    --danger: #dc3545;
+    --warning: #ffc107;
+    --info: #17a2b8;
+    
+    /* Sombras - Sistema de Elevação */
+    --shadow-none: none;
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 35px rgba(0, 0, 0, 0.15);
+    --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.2);
+    --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    
+    /* Bordas - Sistema de Arredondamento */
+    --border-radius-sm: 8px;
+    --border-radius-md: 12px;
+    --border-radius-lg: 16px;
+    --border-radius-xl: 24px;
+    --border-radius-xxl: 32px;
+    --border-radius-circle: 50%;
+    --border-radius-pill: 9999px;
+    
+    /* Transições - Sistema de Movimento */
+    --transition-none: none;
+    --transition-fast: 0.15s ease;
+    --transition-base: 0.3s ease;
+    --transition-slow: 0.5s ease;
+    --transition-very-slow: 0.8s ease;
+    
+    /* Espaçamentos - Sistema de Escala */
+    --spacing-0: 0;
+    --spacing-1: 4px;
+    --spacing-2: 8px;
+    --spacing-3: 16px;
+    --spacing-4: 24px;
+    --spacing-5: 32px;
+    --spacing-6: 48px;
+    --spacing-7: 64px;
+    --spacing-8: 80px;
+    --spacing-9: 96px;
+    --spacing-10: 120px;
+    
+    /* Z-Index System */
+    --z-dropdown: 1000;
+    --z-sticky: 1020;
+    --z-fixed: 1030;
+    --z-modal-backdrop: 1040;
+    --z-modal: 1050;
+    --z-popover: 1060;
+    --z-tooltip: 1070;
+    --z-toast: 1080;
+    
+    /* Container Widths */
+    --container-sm: 540px;
+    --container-md: 720px;
+    --container-lg: 960px;
+    --container-xl: 1140px;
+    --container-xxl: 1320px;
+}
+
+/* ==================== RESET GLOBAL ==================== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--gray-800);
+    background-color: var(--white);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ==================== TIPOGRAFIA AVANÇADA ==================== */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+}
+
+h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+}
+
+h2 {
+    font-size: clamp(1.75rem, 4vw, 3rem);
+}
+
+h3 {
+    font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+}
+
+h4 {
+    font-size: clamp(1.25rem, 3vw, 2rem);
+}
+
+h5 {
+    font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+}
+
+h6 {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+}
+
+p {
+    margin-bottom: 1rem;
+    color: var(--gray-600);
+}
+
+.lead {
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--gray-600);
+    line-height: 1.5;
+}
+
+small, .small {
+    font-size: 0.875rem;
+    font-weight: 400;
+}
+
+.text-muted {
+    color: var(--gray-500) !important;
+}
+
+/* Gradientes de Texto */
+.text-gradient {
+    background: linear-gradient(135deg, var(--pink-primary), var(--lilac-primary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.text-gradient-reverse {
+    background: linear-gradient(135deg, var(--lilac-primary), var(--pink-primary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* ==================== CORES PERSONALIZADAS ==================== */
+/* Text Colors */
+.text-pink {
+    color: var(--pink-primary) !important;
+}
+
+.text-pink-dark {
+    color: var(--pink-primary-dark) !important;
+}
+
+.text-lilac {
+    color: var(--lilac-primary) !important;
+}
+
+.text-pink-hover:hover {
+    color: var(--pink-primary) !important;
+    transition: color var(--transition-fast);
+}
+
+/* Background Colors */
+.bg-pink {
+    background-color: var(--pink-primary) !important;
+}
+
+.bg-pink-dark {
+    background-color: var(--pink-primary-dark) !important;
+}
+
+.bg-lilac {
+    background-color: var(--lilac-primary) !important;
+}
+
+.bg-light-pink {
+    background-color: var(--pink-extra-light) !important;
+}
+
+.bg-light-lilac {
+    background-color: var(--lilac-light) !important;
+}
+
+.bg-extra-light {
+    background-color: var(--lilac-extra-light) !important;
+}
+
+/* Gradientes */
+.bg-gradient-pink {
+    background: linear-gradient(135deg, var(--pink-primary), var(--lilac-primary)) !important;
+}
+
+.bg-gradient-pink-reverse {
+    background: linear-gradient(135deg, var(--lilac-primary), var(--pink-primary)) !important;
+}
+
+.bg-gradient-light {
+    background: linear-gradient(135deg, var(--pink-extra-light), var(--lilac-light)) !important;
+}
+
+.bg-gradient-dark {
+    background: linear-gradient(135deg, var(--gray-800), var(--gray-900)) !important;
+}
+
+/* ==================== BOTÕES SISTEMA ==================== */
+.btn {
+    font-weight: 600;
+    padding: 0.75rem 1.75rem;
+    border-radius: var(--border-radius-pill);
+    transition: all var(--transition-base);
+    letter-spacing: 0.3px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+.btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+}
+
+.btn-sm {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.875rem;
+}
+
+/* Botão Gradiente Principal */
+.btn-gradient {
+    background: linear-gradient(135deg, var(--pink-primary), var(--lilac-primary));
+    color: white;
+    border: none;
+    box-shadow: var(--shadow-md);
+}
+
+.btn-gradient::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--lilac-primary), var(--pink-primary));
+    transition: left var(--transition-base);
+    z-index: -1;
+}
+
+.btn-gradient:hover::before {
+    left: 0;
+}
+
+.btn-gradient:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Botão Rosa Sólido */
+.btn-pink {
+    background-color: var(--pink-primary);
+    color: white;
+    border: none;
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-pink:hover {
+    background-color: var(--pink-primary-dark);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Botão Outline Rosa */
+.btn-outline-pink {
+    border: 2px solid var(--pink-primary);
+    color: var(--pink-primary);
+    background: transparent;
+}
+
+.btn-outline-pink:hover {
+    background-color: var(--pink-primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Botão Outline Lilás */
+.btn-outline-lilac {
+    border: 2px solid var(--lilac-primary);
+    color: var(--lilac-primary);
+    background: transparent;
+}
+
+.btn-outline-lilac:hover {
+    background-color: var(--lilac-primary);
+    color: white;
+}
+
+/* Botão Outline Light */
+.btn-outline-light {
+    border: 2px solid white;
+    color: white;
+}
+
+.btn-outline-light:hover {
+    background-color: white;
+    color: var(--pink-primary);
+    border-color: white;
+}
+
+/* Botão com Efeito de Onda */
+.btn-wave {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-wave .wave {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    transform: scale(0);
+    animation: wave-animation 0.6s ease-out;
+    pointer-events: none;
+}
+
+@keyframes wave-animation {
+    to {
+        transform: scale(10);
+        opacity: 0;
+    }
+}
+
+/* ==================== CARDS SISTEMA ==================== */
+.card {
+    border: none;
+    border-radius: var(--border-radius-lg);
+    transition: all var(--transition-base);
+    overflow: hidden;
+    background: var(--white);
+}
+
+.card-hover-lift {
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.card-hover-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl) !important;
+}
+
+.card-hover-scale {
+    transition: transform var(--transition-base);
+}
+
+.card-hover-scale:hover {
+    transform: scale(1.02);
+}
+
+.card-border-gradient {
+    position: relative;
+    background: var(--white);
+    border-radius: var(--border-radius-lg);
+}
+
+.card-border-gradient::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(135deg, var(--pink-primary), var(--lilac-primary));
+    border-radius: var(--border-radius-lg);
+    z-index: -1;
+}
+
+.card-img-overlay-gradient {
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+}
+
+/* ==================== NAVEGAÇÃO ==================== */
+.navbar {
+    padding: 1rem 0;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.98) !important;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-base);
+}
+
+.navbar-scrolled {
+    padding: 0.5rem 0;
+    background-color: rgba(255, 255, 255, 0.98) !important;
+    box-shadow: var(--shadow-lg);
+}
+
+.navbar-brand {
+    font-weight: 800;
+    font-size: 1.75rem;
+}
+
+.navbar-nav .nav-link {
+    font-weight: 500;
+    color: var(--gray-700);
+    margin: 0 0.25rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius-pill);
+    transition: all var(--transition-fast);
+    position: relative;
+}
+
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(135deg, var(--pink-primary), var(--lilac-primary));
+    transition: all var(--transition-base);
+    transform: translateX(-50%);
+    border-radius: 3px;
+}
+
+.navbar-nav .nav-link:hover::after,
+.navbar-nav .nav-link.active::after {
+    width: 70%;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--pink-primary);
+    background-color: var(--pink-extra-light);
+}
+
+.navbar-nav .nav-link.active {
+    color: var(--pink-primary);
+    background-color: var(--pink-extra-light);
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    border-radius: var(--border-radius-md);
+    border: none;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    box-shadow: var(--shadow-lg);
+    animation: dropdownFadeIn 0.2s ease;
+}
+
+@keyframes dropdownFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-item {
+    border-radius: var(--border-radius-sm);
+    padding: 0.625rem 1rem;
+    transition: all var(--transition-fast);
+}
+
+.dropdown-item:hover {
+    background-color: var(--pink-extra-light);
+    color: var(--pink-primary);
+    transform: translateX(5px);
+}
+
+/* ==================== FORMULÁRIOS ==================== */
+.form-control,
+.form-select {
+    border-radius: var(--border-radius-pill);
+    border: 2px solid var(--gray-200);
+    padding: 0.75rem 1.25rem;
+    transition: all var(--transition-fast);
+    font-size: 1rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--pink-primary);
+    box-shadow: 0 0 0 0.2rem rgba(255, 107, 157, 0.25);
+    outline: none;
+}
+
+.form-control-lg {
+    padding: 1rem 1.5rem;
+    font-size: 1.125rem;
+}
+
+.form-control-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+}
+
+.form-label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--gray-700);
+}
+
+.form-text {
+    font-size: 0.75rem;
+    color: var(--gray-500);
+    margin-top: 0.25rem;
+}
+
+/* Input Group */
+.input-group-text {
+    border-radius: var(--border-radius-pill);
+    background-color: var(--gray-100);
+    border: 2px solid var(--gray-200);
+}
+
+/* Checkbox e Radio Customizados */
+.form-check-input {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-top: 0.1rem;
+    cursor: pointer;
+}
+
+.form-check-input:checked {
+    background-color: var(--pink-primary);
+    border-color: var(--pink-primary);
+}
+
+.form-check-label {
+    cursor: pointer;
+    margin-left: 0.5rem;
+}
+
+/* ==================== HERO SECTION ==================== */
+.hero-slide {
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content h1 {
+    animation: fadeInUp 0.8s ease;
+}
+
+.hero-content .lead {
+    animation: fadeInUp 1s ease;
+}
+
+.hero-buttons {
+    animation: fadeInUp 1.2s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ==================== SEÇÕES E PADDINGS ==================== */
+section {
+    padding: var(--spacing-7) 0;
+    position: relative;
+}
+
+.section-sm {
+    padding: var(--spacing-5) 0;
+}
+
+.section-lg {
+    padding: var(--spacing-9) 0;
+}
+
+.section-title {
+    margin-bottom: var(--spacing-5);
+}
+
+.section-divider {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(135deg, var(--pink-primary), var(--lilac-primary));
+    border-radius: 2px;
+    margin: 1rem auto;
+}
+
+/* ==================== UTILITÁRIOS ADICIONAIS ==================== */
+/* Sombras */
+.shadow-hover {
+    transition: box-shadow var(--transition-base);
+}
+
+.shadow-hover:hover {
+    box-shadow: var(--shadow-xl) !important;
+}
+
+/* Bordas */
+.rounded-4 {
+    border-radius: var(--border-radius-lg);
+}
+
+.rounded-5 {
+    border-radius: var(--border-radius-xl);
+}
+
+/* Transições */
+.transition {
+    transition: all var(--transition-base);
+}
+
+.transition-fast {
+    transition: all var(--transition-fast);
+}
+
+.transition-slow {
+    transition: all var(--transition-slow);
+}
+
+/* Opacidade */
+.opacity-hover {
+    transition: opacity var(--transition-fast);
+}
+
+.opacity-hover:hover {
+    opacity: 0.8;
+}
+
+/* Cursor */
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/* Overflow */
+.overflow-hidden {
+    overflow: hidden;
+}
+
+/* Position */
+.pos-relative {
+    position: relative;
+}
+
+.pos-absolute {
+    position: absolute;
+}
+
+.pos-fixed {
+    position: fixed;
+}
+
+.pos-sticky {
+    position: sticky;
+}
+
+/* Z-Index */
+.z-1 { z-index: 1; }
+.z-2 { z-index: 2; }
+.z-3 { z-index: 3; }
+.z-4 { z-index: 4; }
+.z-5 { z-index: 5; }
+
+/* ==================== ANIMAÇÕES GLOBAIS ==================== */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.animation-pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.animation-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animation-spin {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.animation-shimmer {
+    background: linear-gradient(90deg, var(--gray-200), var(--gray-100), var(--gray-200));
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+/* ==================== SCROLLBAR PERSONALIZADA ==================== */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--gray-200);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--pink-primary), var(--lilac-primary));
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--pink-primary-dark);
+}
+
+/* ==================== SELEÇÃO DE TEXTO ==================== */
+::selection {
+    background-color: var(--pink-primary);
+    color: white;
+}
+
+::-moz-selection {
+    background-color: var(--pink-primary);
+    color: white;
+}
+
+/* ==================== LOADING SPINNER ==================== */
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid var(--gray-200);
+    border-top: 4px solid var(--pink-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+/* ==================== BACK TO TOP BUTTON ==================== */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--pink-primary), var(--lilac-primary));
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-base);
+    z-index: var(--z-fixed);
+    box-shadow: var(--shadow-lg);
+}
+
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-xl);
+}
+
+/* ==================== TOAST NOTIFICATION ==================== */
+.toast-notification {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--gray-800);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius-pill);
+    z-index: var(--z-toast);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-base);
+    white-space: nowrap;
+}
+
+.toast-notification.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.toast-notification.success {
+    background-color: var(--success);
+}
+
+.toast-notification.error {
+    background-color: var(--danger);
+}
+
+/* ==================== PRINT STYLES ==================== */
+@media print {
+    .navbar,
+    .footer,
+    .back-to-top,
+    .btn,
+    .no-print {
+        display: none !important;
+    }
+    
+    body {
+        background: white;
+        color: black;
+    }
+    
+    .card {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+}

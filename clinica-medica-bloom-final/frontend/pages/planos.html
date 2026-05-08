@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planos de Saúde | Bloom Maternity</title>
+    
+    <!-- Bootstrap 5 CSS + Icons + Google Fonts -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/theme.css">
+</head>
+<body>
+    <!-- 
+================================================================================
+COMPONENTE: NAVBAR - Bloom Maternity
+DESCRIÇÃO: Barra de navegação principal do site, responsiva, com dropdown,
+           suporte a tema claro/escuro e estado de login/logout.
+================================================================================
+-->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top transition">
+    <div class="container">
+        <!-- Logo da clínica -->
+        <a class="navbar-brand bloom-brand d-flex align-items-center gap-2" href="index.html" aria-label="Bloom Maternity - Início">
+            <img src="../assets/images/logo-bloom.png" alt="Bloom Maternity" class="brand-logo-img">
+        </a>
+        
+        <!-- Botão toggle para mobile -->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" 
+                aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- Menu principal -->
+        <div class="collapse navbar-collapse" id="navbarMain">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-1">
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold" href="index.html">
+                        <i class="bi bi-house-heart me-1"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold" href="medicos.html">
+                        <i class="bi bi-people me-1"></i> Médicos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold" href="servicos.html">
+                        <i class="bi bi-clipboard2-pulse me-1"></i> Serviços
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold" href="agendamento.html">
+                        <i class="bi bi-calendar-heart me-1"></i> Agendar
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold" href="telemedicina.html">
+                        <i class="bi bi-camera-video me-1"></i> Telemedicina
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle fw-semibold" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-info-circle me-1"></i> Mais
+                    </a>
+                    <ul class="dropdown-menu border-0 shadow-lg rounded-3 mt-2">
+                        <li><a class="dropdown-item py-2" href="duvidas.html"><i class="bi bi-question-circle me-2"></i> Dúvidas Frequentes</a></li>
+                        <li><a class="dropdown-item py-2" href="planos.html"><i class="bi bi-credit-card me-2"></i> Planos de Saúde</a></li>
+                        <li><a class="dropdown-item py-2" href="unidades.html"><i class="bi bi-geo-alt me-2"></i> Nossas Unidades</a></li>
+                        <li><hr class="dropdown-divider my-1"></li>
+                        <li><a class="dropdown-item py-2" href="#"><i class="bi bi-envelope me-2"></i> Fale Conosco</a></li>
+                        <li><a class="dropdown-item py-2" href="#"><i class="bi bi-megaphone me-2"></i> Trabalhe Conosco</a></li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <!-- Área de usuário (dinâmica via JavaScript) -->
+            <div id="userMenu" class="d-flex gap-2 align-items-center">
+                <!-- Conteúdo dinâmico inserido via auth.js -->
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Script para gerenciar estado do usuário na navbar -->
+<script>
+(function() {
+    'use strict';
+    
+    // Atualizar navbar baseado no status de autenticação
+    function updateNavbarAuth() {
+        const userMenu = document.getElementById('userMenu');
+        if (!userMenu) return;
+        
+        // Obter token e usuário
+        const token = localStorage.getItem('bloom_token') || sessionStorage.getItem('bloom_token');
+        let usuario = null;
+        
+        try {
+            const userStr = localStorage.getItem('bloom_user') || sessionStorage.getItem('bloom_user');
+            if (userStr) {
+                usuario = JSON.parse(userStr);
+            }
+        } catch (e) {
+            console.error('Erro ao parsear usuário:', e);
+        }
+        
+        if (token && usuario && usuario.id) {
+            // Usuário logado - mostrar menu do usuário
+            userMenu.innerHTML = `
+                <div class="dropdown">
+                    <button class="btn btn-outline-pink rounded-pill dropdown-toggle d-flex align-items-center gap-2 px-3 py-2" 
+                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-circle fs-5"></i>
+                        <span class="d-none d-md-inline">Olá, ${usuario.nome?.split(' ')[0] || 'Paciente'}!</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg rounded-3 mt-2" style="min-width: 220px;">
+                        <li><a class="dropdown-item py-2" href="meus-agendamentos.html">
+                            <i class="bi bi-calendar-check me-2"></i> Meus Agendamentos
+                        </a></li>
+                        <li><a class="dropdown-item py-2" href="meus-exames.html">
+                            <i class="bi bi-file-text me-2"></i> Meus Exames
+                        </a></li>
+                        <li><a class="dropdown-item py-2" href="meu-perfil.html">
+                            <i class="bi bi-gear me-2"></i> Meu Perfil
+                        </a></li>
+                        ${(usuario.tipo_usuario === 'admin' || usuario.is_admin) ? `<li><a class="dropdown-item py-2" href="admin.html"><i class="bi bi-speedometer2 me-2"></i> Painel Admin</a></li>` : ''}
+                        <li><hr class="dropdown-divider my-1"></li>
+                        <li><a class="dropdown-item py-2 text-danger" href="#" onclick="logout(); return false;">
+                            <i class="bi bi-box-arrow-right me-2"></i> Sair
+                        </a></li>
+                    </ul>
+                </div>
+                <a href="agendamento.html" class="btn btn-gradient rounded-pill d-none d-lg-flex align-items-center gap-2 px-4">
+                    <i class="bi bi-calendar-heart"></i> 
+                    <span>Agendar</span>
+                </a>
+            `;
+        } else {
+            // Usuário não logado - mostrar botões de login/cadastro
+            userMenu.innerHTML = `
+                <a href="login.html" class="btn btn-outline-pink rounded-pill px-4 py-2">
+                    <i class="bi bi-box-arrow-in-right"></i> Entrar
+                </a>
+                <a href="cadastro.html" class="btn btn-gradient rounded-pill px-4 py-2">
+                    <i class="bi bi-person-plus"></i> Cadastrar
+                </a>
+            `;
+        }
+    }
+    
+    // Função global de logout
+    window.logout = function() {
+        // Remover dados de autenticação
+        localStorage.removeItem('bloom_token');
+        localStorage.removeItem('bloom_user');
+        localStorage.removeItem('bloom_user_id');
+        sessionStorage.removeItem('bloom_token');
+        sessionStorage.removeItem('bloom_user');
+        sessionStorage.removeItem('bloom_user_id');
+        
+        // Mostrar mensagem
+        if (window.showToast) {
+            window.showToast('Logout realizado com sucesso!', 'success');
+        } else {
+            alert('Logout realizado com sucesso!');
+        }
+        
+        // Redirecionar para home
+        window.location.href = 'index.html';
+    };
+    
+    // Função global de verificação de login
+    window.isLoggedIn = function() {
+        const token = localStorage.getItem('bloom_token') || sessionStorage.getItem('bloom_token');
+        return !!token;
+    };
+    
+    // Inicializar quando o DOM estiver pronto
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', updateNavbarAuth);
+    } else {
+        updateNavbarAuth();
+    }
+    
+    // Escutar mudanças no storage (para múltiplas abas)
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'bloom_token' || e.key === 'bloom_user') {
+            updateNavbarAuth();
+        }
+    });
+})();
+</script>
+
+<style>
+    /* Estilos específicos da navbar */
+    .navbar {
+        transition: all 0.3s ease;
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+    
+    .navbar-scrolled {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+    }
+    
+    .navbar-nav .nav-link {
+        position: relative;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+    }
+    
+    .navbar-nav .nav-link:hover {
+        background-color: #ffe4ec;
+        color: #ff6b9d !important;
+        transform: translateY(-2px);
+    }
+    
+    .navbar-nav .nav-link.active {
+        background: linear-gradient(135deg, #ffe4ec, #f5eef5);
+        color: #ff6b9d !important;
+    }
+    
+    .navbar-nav .nav-link.active::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 30px;
+        height: 3px;
+        background: linear-gradient(135deg, #ff6b9d, #c8a2c8);
+        border-radius: 3px;
+    }
+    
+    .dropdown-menu {
+        animation: dropdownSlide 0.2s ease;
+    }
+    
+    @keyframes dropdownSlide {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .dropdown-item {
+        transition: all 0.2s ease;
+        border-radius: 10px;
+    }
+    
+    .dropdown-item:hover {
+        background-color: #ffe4ec;
+        color: #ff6b9d;
+        transform: translateX(5px);
+    }
+    
+    @media (max-width: 991.98px) {
+        .navbar-nav {
+            padding: 1rem 0;
+        }
+        
+        .navbar-nav .nav-link {
+            display: inline-block;
+            margin: 0.25rem 0;
+        }
+        
+        .navbar-nav .nav-link.active::after {
+            display: none;
+        }
+        
+        #userMenu {
+            margin-top: 1rem;
+            justify-content: center;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .navbar-brand {
+            font-size: 1.35rem !important;
+        }
+        
+        .btn-outline-pink,
+        .btn-gradient {
+            padding: 0.4rem 1rem !important;
+            font-size: 0.85rem;
+        }
+    }
+</style>
+
+    <main>
+        <!-- Header -->
+        <section class="page-header bg-gradient-pink text-white py-5">
+            <div class="container text-center">
+                <i class="bi bi-credit-card-2-front fs-1 mb-3"></i>
+                <h1 class="display-3 fw-bold">Planos de <span class="text-warning">Saúde</span></h1>
+                <p class="lead">Conheça os convênios aceitos pela Bloom Maternity e encontre a melhor opção para você</p>
+            </div>
+        </section>
+
+        <!-- Banner Informativo -->
+        <section class="info-banner py-4 bg-light">
+            <div class="container">
+                <div class="alert alert-info rounded-4 border-0 shadow-sm mb-0">
+                    <div class="d-flex align-items-center flex-wrap gap-3">
+                        <i class="bi bi-info-circle-fill fs-1 text-pink"></i>
+                        <div>
+                            <strong class="fs-5">Importante:</strong> A cobertura dos procedimentos varia conforme seu plano. Recomendamos verificar sua carteirinha ou entrar em contato com a central de atendimento do seu convênio para confirmar a cobertura dos serviços desejados.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Planos Aceitos (Grid de Convênios) -->
+        <section class="accepted-plans-section py-5">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="display-4 fw-bold"><span class="text-gradient">Convênios Aceitos</span></h2>
+                    <p class="lead">Trabalhamos com os melhores planos de saúde do mercado</p>
+                    <div class="divider mx-auto" style="width: 80px; height: 4px; background: linear-gradient(90deg, #ff6b9d, #c8a2c8); border-radius: 2px;"></div>
+                </div>
+
+                <!-- Grid de Planos Aceitos -->
+                <div class="row g-4">
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="insurance-card text-center p-4 rounded-4 shadow-sm bg-white h-100 transition">
+                            <div class="insurance-logo bg-light-pink rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                                <i class="bi bi-heart-half fs-1 text-pink"></i>
+                            </div>
+                            <h5 class="fw-bold">Unimed</h5>
+                            <p class="text-muted small">Todos os planos</p>
+                            <span class="badge bg-success rounded-pill px-3 py-2">
+                                <i class="bi bi-check-circle-fill"></i> Aceito
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="insurance-card text-center p-4 rounded-4 shadow-sm bg-white h-100 transition">
+                            <div class="insurance-logo bg-light-pink rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                                <i class="bi bi-building fs-1 text-pink"></i>
+                            </div>
+                            <h5 class="fw-bold">Bradesco Saúde</h5>
+                            <p class="text-muted small">Nacional e Empresarial</p>
+                            <span class="badge bg-success rounded-pill px-3 py-2">
+                                <i class="bi bi-check-circle-fill"></i> Aceito
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="insurance-card text-center p-4 rounded-4 shadow-sm bg-white h-100 transition">
+                            <div class="insurance-logo bg-light-pink rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                                <i class="bi bi-shield fs-1 text-pink"></i>
+                            </div>
+                            <h5 class="fw-bold">SulAmérica</h5>
+                            <p class="text-muted small">Saúde e Odonto</p>
+                            <span class="badge bg-success rounded-pill px-3 py-2">
+                                <i class="bi bi-check-circle-fill"></i> Aceito
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="insurance-card text-center p-4 rounded-4 shadow-sm bg-white h-100 transition">
+                            <div class="insurance-logo bg-light-pink rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                                <i class="bi bi-hospital fs-1 text-pink"></i>
+                            </div>
+                            <h5 class="fw-bold">Amil</h5>
+                            <p class="text-muted small">One, Clinical, Total</p>
+                            <span class="badge bg-success rounded-pill px-3 py-2">
+                                <i class="bi bi-check-circle-fill"></i> Aceito
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="insurance-card text-center p-4 rounded-4 shadow-sm bg-white h-100 transition">
+                            <div class="insurance-logo bg-light-pink rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                                <i class="bi bi-star fs-1 text-pink"></i>
+                            </div>
+                            <h5 class="fw-bold">Prevent Senior</h5>
+                            <p class="text-muted small">Todos os planos</p>
+                            <span class="badge bg-success rounded-pill px-3 py-2">
+                                <i class="bi bi-check-circle-fill"></i> Aceito
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="insurance-card text-center p-4 rounded-4 shadow-sm bg-white h-100 transition">
+                            <div class="insurance-logo bg-light-pink rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                                <i class="bi bi-droplet fs-1 text-pink"></i>
+                            </div>
+                            <h5 class="fw-bold">Hapvida</h5>
+                            <p class="text-muted small">Nacional</p>
+                            <span class="badge bg-success rounded-pill px-3 py-2">
+                                <i class="bi bi-check-circle-fill"></i> Aceito
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="insurance-card text-center p-4 rounded-4 shadow-sm bg-white h-100 transition">
+                            <div class="insurance-logo bg-light-pink rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                                <i class="bi bi-tree fs-1 text-pink"></i>
+                            </div>
+                            <h5 class="fw-bold">NotreDame Intermédica</h5>
+                            <p class="text-muted small">Todos os planos</p>
+                            <span class="badge bg-success rounded-pill px-3 py-2">
+                                <i class="bi bi-check-circle-fill"></i> Aceito
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="insurance-card text-center p-4 rounded-4 shadow-sm bg-white h-100 transition">
+                            <div class="insurance-logo bg-light-pink rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                                <i class="bi bi-ship fs-1 text-pink"></i>
+                            </div>
+                            <h5 class="fw-bold">Porto Seguro Saúde</h5>
+                            <p class="text-muted small">Saúde e Odonto</p>
+                            <span class="badge bg-success rounded-pill px-3 py-2">
+                                <i class="bi bi-check-circle-fill"></i> Aceito
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Planos Não Aceitos -->
+        <section class="not-accepted-section py-5 bg-light">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="display-4 fw-bold"><span class="text-muted">Planos Não</span> <span class="text-danger">Aceitos</span></h2>
+                    <p class="lead">Infelizmente ainda não atendemos estes convênios</p>
+                </div>
+
+                <div class="row g-4 justify-content-center">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card border-danger rounded-4 shadow-sm h-100">
+                            <div class="card-body text-center p-4">
+                                <i class="bi bi-x-circle-fill text-danger fs-1 mb-3"></i>
+                                <h5 class="fw-bold">Cassi</h5>
+                                <p class="text-muted small">Banco do Brasil</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card border-danger rounded-4 shadow-sm h-100">
+                            <div class="card-body text-center p-4">
+                                <i class="bi bi-x-circle-fill text-danger fs-1 mb-3"></i>
+                                <h5 class="fw-bold">Geap</h5>
+                                <p class="text-muted small">Autogestão em Saúde</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card border-danger rounded-4 shadow-sm h-100">
+                            <div class="card-body text-center p-4">
+                                <i class="bi bi-x-circle-fill text-danger fs-1 mb-3"></i>
+                                <h5 class="fw-bold">Petrobrás Saúde</h5>
+                                <p class="text-muted small">Sistema Petrobrás</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="alert alert-warning mt-4 text-center rounded-4">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    <strong>Atenção:</strong> Mesmo que seu plano não esteja na lista de aceitos, você pode solicitar reembolso ao seu convênio. Consulte seu plano sobre a política de reembolso para atendimentos particulares.
+                </div>
+            </div>
+        </section>
+
+        <!-- Atendimento Particular -->
+        <section class="private-section py-5">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6">
+                        <div class="private-content">
+                            <span class="badge bg-pink mb-3 px-4 py-2 rounded-pill">
+                                <i class="bi bi-cash-coin"></i> Sem Convênio?
+                            </span>
+                            <h2 class="display-4 fw-bold mb-4">Atendimento <span class="text-gradient">Particular</span></h2>
+                            <p class="lead mb-4">Oferecemos atendimento de excelência também para pacientes particulares, com preços acessíveis e qualidade premium.</p>
+                            
+                            <div class="private-pricing bg-light-pink p-4 rounded-4 mb-4">
+                                <h5 class="fw-bold mb-3"><i class="bi bi-tag-fill text-pink"></i> Tabela de Preços Particulares:</h5>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <ul class="list-unstyled">
+                                            <li class="mb-2"><strong>Consulta Obstétrica:</strong> R$ 250</li>
+                                            <li class="mb-2"><strong>Consulta Ginecológica:</strong> R$ 220</li>
+                                            <li class="mb-2"><strong>Ultrassom Obstétrico:</strong> R$ 250</li>
+                                            <li class="mb-2"><strong>Ultrassom Morfológico:</strong> R$ 380</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-6">
+                                        <ul class="list-unstyled">
+                                            <li class="mb-2"><strong>Ultrassom 3D/4D:</strong> R$ 450</li>
+                                            <li class="mb-2"><strong>Curva Glicêmica:</strong> R$ 90</li>
+                                            <li class="mb-2"><strong>Cardiotocografia:</strong> R$ 200</li>
+                                            <li class="mb-2"><strong>Telemedicina:</strong> R$ 150</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="payment-methods">
+                                <h6 class="fw-bold mb-3"><i class="bi bi-credit-card"></i> Formas de Pagamento:</h6>
+                                <div class="d-flex gap-3 flex-wrap">
+                                    <span class="badge bg-light-pink text-dark p-2 rounded-pill"><i class="bi bi-credit-card"></i> Cartão Crédito</span>
+                                    <span class="badge bg-light-pink text-dark p-2 rounded-pill"><i class="bi bi-bank"></i> Cartão Débito</span>
+                                    <span class="badge bg-light-pink text-dark p-2 rounded-pill"><i class="bi bi-cash"></i> Dinheiro</span>
+                                    <span class="badge bg-light-pink text-dark p-2 rounded-pill"><i class="bi bi-qr-code"></i> PIX</span>
+                                    <span class="badge bg-light-pink text-dark p-2 rounded-pill"><i class="bi bi-barcode"></i> Boleto</span>
+                                </div>
+                                <p class="small text-muted mt-3">* Parcelamos em até 3x sem juros no cartão de crédito</p>
+                            </div>
+                            
+                            <a href="agendamento.html" class="btn btn-gradient btn-lg rounded-pill px-5 mt-4">
+                                <i class="bi bi-calendar-heart"></i> Agendar Consulta Particular
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="private-image position-relative">
+                            <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Atendimento particular" class="img-fluid rounded-4 shadow-lg">
+                            <div class="floating-card position-absolute bg-white rounded-4 shadow-lg p-3" style="bottom: -20px; right: 20px; max-width: 200px;">
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="bi bi-whatsapp fs-3 text-success"></i>
+                                    <div>
+                                        <small class="text-muted">Atendimento via WhatsApp</small>
+                                        <h6 class="mb-0">(11) 99999-9999</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reembolso de Convênios -->
+        <section class="reimbursement-section py-5 bg-light-gradient">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="display-4 fw-bold">Reembolso de <span class="text-gradient">Convênios</span></h2>
+                    <p class="lead">Como solicitar reembolso ao seu plano de saúde</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="step-card text-center p-4 rounded-4 bg-white shadow-sm h-100">
+                            <div class="step-number bg-pink text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 50px; height: 50px;">1</div>
+                            <h5 class="fw-bold">Verifique a cobertura</h5>
+                            <p class="text-muted">Consulte seu plano sobre a política de reembolso para serviços obstétricos e ginecológicos.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="step-card text-center p-4 rounded-4 bg-white shadow-sm h-100">
+                            <div class="step-number bg-pink text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 50px; height: 50px;">2</div>
+                            <h5 class="fw-bold">Realize o atendimento</h5>
+                            <p class="text-muted">Agende e realize sua consulta/exame como paciente particular.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="step-card text-center p-4 rounded-4 bg-white shadow-sm h-100">
+                            <div class="step-number bg-pink text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 50px; height: 50px;">3</div>
+                            <h5 class="fw-bold">Solicite reembolso</h5>
+                            <p class="text-muted">Entre com o pedido de reembolso no seu convênio com a nota fiscal que fornecemos.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-5">
+                    <div class="alert alert-info rounded-4">
+                        <i class="bi bi-file-text-fill fs-4 me-2"></i>
+                        <strong>Documentos necessários para reembolso:</strong> Nota fiscal, guia de atendimento, relatório médico e comprovante de pagamento. Fornecemos toda documentação necessária.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tabela Comparativa de Cobertura -->
+        <section class="coverage-table-section py-5">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="display-4 fw-bold">Cobertura por <span class="text-gradient">Convênio</span></h2>
+                    <p class="lead">Consulte a cobertura dos principais procedimentos por plano</p>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover shadow-sm rounded-4 overflow-hidden">
+                        <thead class="bg-gradient-pink text-white">
+                            <tr>
+                                <th class="p-3">Procedimento</th>
+                                <th class="p-3">Unimed</th>
+                                <th class="p-3">Bradesco</th>
+                                <th class="p-3">SulAmérica</th>
+                                <th class="p-3">Amil</th>
+                                <th class="p-3">Particular</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="fw-semibold">Consulta Obstétrica</td>
+                                <td><i class="bi bi-check-circle-fill text-success"></i> Coberto</td>
+                                <td><i class="bi bi-check-circle-fill text-success"></i> Coberto</td>
+                                <td><i class="bi bi-check-circle-fill text-success"></i> Coberto</td>
+                                <td><i class="bi bi-check-circle-fill text-success"></i> Coberto</td>
+                                <td>R$ 250</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-semibold">Ultrassom Obstétrico</td>
+                                <td><i class="bi bi-check-circle-fill text-success"></i> Coberto</td>
+                                <td><i class="bi bi-check-circle-fill text-success"></i> Coberto</td>
+                                <td><i class="bi bi-check-circle-fill text-success"></i> Coberto</td>
+                                <td><i class="bi bi-check-circle-fill text-success"></i> Coberto</td>
+                                <td>R$ 250</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-semibold">Ultrassom Morfológico</td>
+                                <td><i class="bi bi-check-circle-fill text-success"></i> Coberto</td>
+                                <td><i class="bi bi-check-circle-fill text-success"></i> Coberto</td>
+                                <td><i class="bi bi-check-circle-fill text-success"></i> Coberto</td>
+                                <td><i class="bi bi-exclamation-triangle-fill text-warning"></i> Coparticipação</td>
+                                <td>R$ 380</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-semibold">Curva Glicêmica (TOTG)</td>
+                                <td><i class="bi bi-check-circle-fill text-success"></i> Coberto</td>
+                                <td><i class="bi bi-check-circle-fill text-success"></i> Coberto</td>
+                                <td><i class="bi bi-check-circle-fill text-success"></i> Coberto</td>
+                                <td><i class="bi bi-check-circle-fill text-success"></i> Coberto</td>
+                                <td>R$ 90</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-semibold">Cardiotocografia</td>
+                                <td><i class="bi bi-check-circle-fill text-success"></i> Coberto</td>
+                                <td><i class="bi bi-check-circle-fill text-success"></i> Coberto</td>
+                                <td><i class="bi bi-exclamation-triangle-fill text-warning"></i> Coparticipação</td>
+                                <td><i class="bi bi-check-circle-fill text-success"></i> Coberto</td>
+                                <td>R$ 200</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-semibold">Telemedicina</td>
+                                <td><i class="bi bi-check-circle-fill text-success"></i> Coberto</td>
+                                <td><i class="bi bi-check-circle-fill text-success"></i> Coberto</td>
+                                <td><i class="bi bi-check-circle-fill text-success"></i> Coberto</td>
+                                <td><i class="bi bi-exclamation-triangle-fill text-warning"></i> Verificar</td>
+                                <td>R$ 150</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="alert alert-secondary mt-4 rounded-4">
+                    <i class="bi bi-info-circle me-2"></i>
+                    <strong>Nota:</strong> A tabela acima é uma referência geral. As coberturas podem variar conforme o tipo de plano e contrato específico. Sempre confirme com seu convênio antes do agendamento.
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Planos de Saúde -->
+        <section class="faq-planos-section py-5 bg-light">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="display-4 fw-bold">Dúvidas sobre <span class="text-gradient">Planos</span></h2>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="accordion" id="faqPlanos">
+                            <div class="accordion-item mb-3 border-0 shadow-sm rounded-3">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button rounded-3" type="button" data-bs-toggle="collapse" data-bs-target="#plano1">
+                                        <i class="bi bi-question-circle me-2 text-pink"></i> Meu convênio não está na lista. Posso usar reembolso?
+                                    </button>
+                                </h2>
+                                <div id="plano1" class="accordion-collapse collapse show">
+                                    <div class="accordion-body">
+                                        Sim! Mesmo que seu plano não esteja na nossa lista de convênios aceitos, você pode utilizar o sistema de reembolso. Basta realizar o atendimento como paciente particular, solicitar a nota fiscal e documentos necessários, e depois pedir o reembolso ao seu plano de saúde. Recomendamos verificar previamente com seu convênio se eles reembolsam serviços obstétricos.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item mb-3 border-0 shadow-sm rounded-3">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed rounded-3" type="button" data-bs-toggle="collapse" data-bs-target="#plano2">
+                                        <i class="bi bi-question-circle me-2 text-pink"></i> Como saber se meu plano cobre o exame que preciso?
+                                    </button>
+                                </h2>
+                                <div id="plano2" class="accordion-collapse collapse">
+                                    <div class="accordion-body">
+                                        A maneira mais segura é entrar em contato com a central de atendimento do seu convênio e informar o código do procedimento que deseja realizar. Nossa equipe também pode ajudar informando os códigos ANS dos exames para você consultar. Entre em contato pelo WhatsApp (11) 3333-4444 para mais informações.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item mb-3 border-0 shadow-sm rounded-3">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed rounded-3" type="button" data-bs-toggle="collapse" data-bs-target="#plano3">
+                                        <i class="bi bi-question-circle me-2 text-pink"></i> Quanto tempo demora o reembolso?
+                                    </button>
+                                </h2>
+                                <div id="plano3" class="accordion-collapse collapse">
+                                    <div class="accordion-body">
+                                        O prazo para reembolso varia conforme cada convênio, geralmente entre 15 a 45 dias úteis após a solicitação. Recomendamos guardar toda documentação (nota fiscal, comprovante de pagamento, guia de atendimento) e acompanhar o protocolo junto ao seu plano.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item border-0 shadow-sm rounded-3">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed rounded-3" type="button" data-bs-toggle="collapse" data-bs-target="#plano4">
+                                        <i class="bi bi-question-circle me-2 text-pink"></i> Aceitam plano empresarial e individual?
+                                    </button>
+                                </h2>
+                                <div id="plano4" class="accordion-collapse collapse">
+                                    <div class="accordion-body">
+                                        Sim! Atendemos tanto planos empresariais quanto individuais, desde que sejam dos convênios parceiros. A cobertura pode variar conforme a modalidade, por isso sempre recomendamos verificar a carteirinha ou contatar seu plano antes do atendimento.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Final -->
+        <section class="cta-final py-5 bg-gradient-pink text-white">
+            <div class="container text-center">
+                <h2 class="display-4 fw-bold mb-3">Pronta para cuidar da sua saúde?</h2>
+                <p class="lead mb-4">Agende sua consulta online de forma rápida e segura</p>
+                <div class="d-flex justify-content-center gap-3 flex-wrap">
+                    <a href="agendamento.html" class="btn btn-light btn-lg rounded-pill px-5 py-3 shadow-lg">
+                        <i class="bi bi-calendar-check"></i> Agendar Consulta
+                    </a>
+                    <a href="planos.html" class="btn btn-outline-light btn-lg rounded-pill px-5 py-3">
+                        <i class="bi bi-whatsapp"></i> Falar com Atendimento
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 
+================================================================================
+COMPONENTE: FOOTER - Bloom Maternity
+DESCRIÇÃO: Rodapé completo com informações de contato, links úteis, 
+           redes sociais, newsletter, selos de segurança e copyright.
+================================================================================
+-->
+
+<footer class="footer bg-dark text-white pt-5 pb-4 mt-5">
+    <div class="container">
+        <div class="row g-4">
+            <!-- Coluna 1: Logo e descrição -->
+            <div class="col-lg-4 col-md-6">
+                <div class="footer-brand mb-3">
+                    <h2 class="fw-bold mb-0">
+                        <span class="text-pink">Bloom</span> 
+                        <span class="text-lilac">Maternity</span>
+                    </h2>
+                    <p class="text-white-50 small mt-2">Clínica de Obstetrícia</p>
+                </div>
+                <p class="text-white-50 mb-3" style="line-height: 1.6;">
+                    Cuidando de você do início à maternidade. Excelência em obstetrícia 
+                    com atendimento humanizado e tecnologia de ponta.
+                </p>
+                
+                <!-- Selos de segurança -->
+                <div class="d-flex gap-3 mt-4">
+                    <div class="security-seal text-center">
+                        <i class="bi bi-shield-check fs-3 text-success"></i>
+                        <p class="small mb-0 text-white-50">Ambiente Seguro</p>
+                    </div>
+                    <div class="security-seal text-center">
+                        <i class="bi bi-lock-fill fs-3 text-warning"></i>
+                        <p class="small mb-0 text-white-50">Dados Protegidos</p>
+                    </div>
+                    <div class="security-seal text-center">
+                        <i class="bi bi-award-fill fs-3 text-info"></i>
+                        <p class="small mb-0 text-white-50">Certificado</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Coluna 2: Links rápidos -->
+            <div class="col-lg-2 col-md-6">
+                <h5 class="fw-bold mb-3 text-pink">Links Rápidos</h5>
+                <ul class="list-unstyled footer-links">
+                    <li class="mb-2"><a href="index.html" class="text-white-50 text-decoration-none transition">Home</a></li>
+                    <li class="mb-2"><a href="medicos.html" class="text-white-50 text-decoration-none transition">Médicos</a></li>
+                    <li class="mb-2"><a href="servicos.html" class="text-white-50 text-decoration-none transition">Serviços</a></li>
+                    <li class="mb-2"><a href="agendamento.html" class="text-white-50 text-decoration-none transition">Agendamento</a></li>
+                    <li class="mb-2"><a href="telemedicina.html" class="text-white-50 text-decoration-none transition">Telemedicina</a></li>
+                    <li class="mb-2"><a href="duvidas.html" class="text-white-50 text-decoration-none transition">Dúvidas Frequentes</a></li>
+                </ul>
+            </div>
+            
+            <!-- Coluna 3: Informações institucionais -->
+            <div class="col-lg-2 col-md-6">
+                <h5 class="fw-bold mb-3 text-pink">Institucional</h5>
+                <ul class="list-unstyled footer-links">
+                    <li class="mb-2"><a href="planos.html" class="text-white-50 text-decoration-none transition">Planos de Saúde</a></li>
+                    <li class="mb-2"><a href="unidades.html" class="text-white-50 text-decoration-none transition">Nossas Unidades</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none transition">Trabalhe Conosco</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none transition">Política de Privacidade</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none transition">Termos de Uso</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none transition">LGPD</a></li>
+                </ul>
+            </div>
+            
+            <!-- Coluna 4: Contato e redes sociais -->
+            <div class="col-lg-4 col-md-6">
+                <h5 class="fw-bold mb-3 text-pink">Contato</h5>
+                <ul class="list-unstyled contact-info">
+                    <li class="mb-3 d-flex align-items-center gap-2">
+                        <i class="bi bi-telephone text-pink fs-5"></i>
+                        <span class="text-white-50">(11) 3333-4444</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center gap-2">
+                        <i class="bi bi-whatsapp text-success fs-5"></i>
+                        <span class="text-white-50">(11) 99999-9999</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center gap-2">
+                        <i class="bi bi-envelope text-pink fs-5"></i>
+                        <span class="text-white-50">contato@bloommaternity.com.br</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center gap-2">
+                        <i class="bi bi-clock-history text-pink fs-5"></i>
+                        <span class="text-white-50">Seg-Sex: 8h às 20h | Sáb: 8h às 14h</span>
+                    </li>
+                </ul>
+                
+                <!-- Redes sociais -->
+                <div class="social-links mt-3">
+                    <h6 class="mb-3 text-white-50">Siga-nos</h6>
+                    <div class="d-flex gap-2">
+                        <a href="#" class="btn-social-footer" aria-label="Instagram">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="#" class="btn-social-footer" aria-label="Facebook">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="#" class="btn-social-footer" aria-label="WhatsApp">
+                            <i class="bi bi-whatsapp"></i>
+                        </a>
+                        <a href="#" class="btn-social-footer" aria-label="YouTube">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                        <a href="#" class="btn-social-footer" aria-label="LinkedIn">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <hr class="my-4 bg-secondary opacity-25">
+        
+        <!-- Newsletter -->
+        <div class="row mb-4">
+            <div class="col-lg-8 mx-auto text-center">
+                <h5 class="fw-bold mb-3 text-pink">Receba novidades e dicas de saúde</h5>
+                <p class="text-white-50 small mb-3">Inscreva-se para receber conteúdos exclusivos sobre cuidados na gestação e saúde da mulher</p>
+                <div class="input-group justify-content-center flex-wrap gap-2">
+                    <input type="email" class="form-control rounded-pill w-75 w-md-auto" 
+                           placeholder="Seu melhor e-mail" id="newsletterEmail"
+                           style="max-width: 350px;">
+                    <button class="btn btn-gradient rounded-pill px-4" onclick="subscribeNewsletter()">
+                        <i class="bi bi-send"></i> Assinar
+                    </button>
+                </div>
+                <p class="small text-white-50 mt-2">
+                    <i class="bi bi-shield-check"></i> Seu e-mail está seguro. Não enviamos spam.
+                </p>
+            </div>
+        </div>
+        
+        <hr class="my-4 bg-secondary opacity-25">
+        
+        <!-- Copyright e formas de pagamento -->
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center text-md-start">
+                <p class="text-white-50 small mb-0">
+                    &copy; 2024 Bloom Maternity - Clínica de Obstetrícia. 
+                    <br class="d-md-none">Todos os direitos reservados.
+                </p>
+            </div>
+            <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+                <div class="payment-methods d-flex justify-content-center justify-content-md-end gap-2 flex-wrap">
+                    <span class="badge bg-dark text-white-50 border px-3 py-2 rounded-pill">
+                        <i class="bi bi-credit-card"></i> Visa
+                    </span>
+                    <span class="badge bg-dark text-white-50 border px-3 py-2 rounded-pill">
+                        <i class="bi bi-credit-card"></i> Mastercard
+                    </span>
+                    <span class="badge bg-dark text-white-50 border px-3 py-2 rounded-pill">
+                        <i class="bi bi-barcode"></i> Boleto
+                    </span>
+                    <span class="badge bg-dark text-white-50 border px-3 py-2 rounded-pill">
+                        <i class="bi bi-qr-code"></i> PIX
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Créditos do desenvolvedor -->
+        <div class="row mt-4">
+            <div class="col-12 text-center">
+                <p class="small text-white-50 opacity-50 mb-0">
+                    Desenvolvido com <i class="bi bi-heart-fill text-danger"></i> para cuidar de você e do seu bebê
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+    .footer {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #ff6b9d, #c8a2c8);
+    }
+    
+    .footer-links a {
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+    
+    .footer-links a:hover {
+        color: #ff6b9d !important;
+        transform: translateX(5px);
+    }
+    
+    .btn-social-footer {
+        width: 38px;
+        height: 38px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+    
+    .btn-social-footer:hover {
+        background: #ff6b9d;
+        color: white;
+        transform: translateY(-3px);
+    }
+    
+    .contact-info li {
+        transition: all 0.3s ease;
+    }
+    
+    .contact-info li:hover {
+        transform: translateX(5px);
+    }
+    
+    .security-seal {
+        transition: all 0.3s ease;
+    }
+    
+    .security-seal:hover {
+        transform: translateY(-3px);
+    }
+    
+    @media (max-width: 768px) {
+        .footer {
+            text-align: center;
+        }
+        
+        .contact-info li {
+            justify-content: center;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .footer-links a:hover {
+            transform: none;
+        }
+    }
+</style>
+
+<script>
+    function subscribeNewsletter() {
+        const email = document.getElementById('newsletterEmail');
+        if (!email) return;
+        
+        const emailValue = email.value.trim();
+        
+        if (!emailValue) {
+            alert('Por favor, informe seu e-mail.');
+            email.focus();
+            return;
+        }
+        
+        if (!isValidEmail(emailValue)) {
+            alert('Por favor, informe um e-mail válido.');
+            email.focus();
+            return;
+        }
+        
+        // Simular envio (em produção, enviaria para API)
+        console.log('Newsletter subscription:', emailValue);
+        
+        alert(`Obrigado por se inscrever! Enviaremos novidades para ${emailValue}`);
+        email.value = '';
+        
+        // Opcional: enviar para API
+        // fetch('/api/newsletter', { method: 'POST', body: JSON.stringify({ email: emailValue }) });
+    }
+    
+    function isValidEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+    
+    // Tornar função global
+    window.subscribeNewsletter = subscribeNewsletter;
+</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="../js/main.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+        });
+    </script>
+</body>
+</html>

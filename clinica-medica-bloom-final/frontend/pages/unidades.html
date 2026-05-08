@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nossas Unidades | Bloom Maternity</title>
+
+    <!-- Bootstrap 5 CSS + Icons + Google Fonts -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Leaflet CSS para mapas -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/theme.css">
+</head>
+
+<body>
+    <!-- 
+================================================================================
+COMPONENTE: NAVBAR - Bloom Maternity
+DESCRIÇÃO: Barra de navegação principal do site, responsiva, com dropdown,
+           suporte a tema claro/escuro e estado de login/logout.
+================================================================================
+-->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top transition">
+    <div class="container">
+        <!-- Logo da clínica -->
+        <a class="navbar-brand bloom-brand d-flex align-items-center gap-2" href="index.html" aria-label="Bloom Maternity - Início">
+            <img src="../assets/images/logo-bloom.png" alt="Bloom Maternity" class="brand-logo-img">
+        </a>
+        
+        <!-- Botão toggle para mobile -->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" 
+                aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- Menu principal -->
+        <div class="collapse navbar-collapse" id="navbarMain">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-1">
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold" href="index.html">
+                        <i class="bi bi-house-heart me-1"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold" href="medicos.html">
+                        <i class="bi bi-people me-1"></i> Médicos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold" href="servicos.html">
+                        <i class="bi bi-clipboard2-pulse me-1"></i> Serviços
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold" href="agendamento.html">
+                        <i class="bi bi-calendar-heart me-1"></i> Agendar
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold" href="telemedicina.html">
+                        <i class="bi bi-camera-video me-1"></i> Telemedicina
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle fw-semibold" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-info-circle me-1"></i> Mais
+                    </a>
+                    <ul class="dropdown-menu border-0 shadow-lg rounded-3 mt-2">
+                        <li><a class="dropdown-item py-2" href="duvidas.html"><i class="bi bi-question-circle me-2"></i> Dúvidas Frequentes</a></li>
+                        <li><a class="dropdown-item py-2" href="planos.html"><i class="bi bi-credit-card me-2"></i> Planos de Saúde</a></li>
+                        <li><a class="dropdown-item py-2" href="unidades.html"><i class="bi bi-geo-alt me-2"></i> Nossas Unidades</a></li>
+                        <li><hr class="dropdown-divider my-1"></li>
+                        <li><a class="dropdown-item py-2" href="#"><i class="bi bi-envelope me-2"></i> Fale Conosco</a></li>
+                        <li><a class="dropdown-item py-2" href="#"><i class="bi bi-megaphone me-2"></i> Trabalhe Conosco</a></li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <!-- Área de usuário (dinâmica via JavaScript) -->
+            <div id="userMenu" class="d-flex gap-2 align-items-center">
+                <!-- Conteúdo dinâmico inserido via auth.js -->
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Script para gerenciar estado do usuário na navbar -->
+<script>
+(function() {
+    'use strict';
+    
+    // Atualizar navbar baseado no status de autenticação
+    function updateNavbarAuth() {
+        const userMenu = document.getElementById('userMenu');
+        if (!userMenu) return;
+        
+        // Obter token e usuário
+        const token = localStorage.getItem('bloom_token') || sessionStorage.getItem('bloom_token');
+        let usuario = null;
+        
+        try {
+            const userStr = localStorage.getItem('bloom_user') || sessionStorage.getItem('bloom_user');
+            if (userStr) {
+                usuario = JSON.parse(userStr);
+            }
+        } catch (e) {
+            console.error('Erro ao parsear usuário:', e);
+        }
+        
+        if (token && usuario && usuario.id) {
+            // Usuário logado - mostrar menu do usuário
+            userMenu.innerHTML = `
+                <div class="dropdown">
+                    <button class="btn btn-outline-pink rounded-pill dropdown-toggle d-flex align-items-center gap-2 px-3 py-2" 
+                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-circle fs-5"></i>
+                        <span class="d-none d-md-inline">Olá, ${usuario.nome?.split(' ')[0] || 'Paciente'}!</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg rounded-3 mt-2" style="min-width: 220px;">
+                        <li><a class="dropdown-item py-2" href="meus-agendamentos.html">
+                            <i class="bi bi-calendar-check me-2"></i> Meus Agendamentos
+                        </a></li>
+                        <li><a class="dropdown-item py-2" href="meus-exames.html">
+                            <i class="bi bi-file-text me-2"></i> Meus Exames
+                        </a></li>
+                        <li><a class="dropdown-item py-2" href="meu-perfil.html">
+                            <i class="bi bi-gear me-2"></i> Meu Perfil
+                        </a></li>
+                        ${(usuario.tipo_usuario === 'admin' || usuario.is_admin) ? `<li><a class="dropdown-item py-2" href="admin.html"><i class="bi bi-speedometer2 me-2"></i> Painel Admin</a></li>` : ''}
+                        <li><hr class="dropdown-divider my-1"></li>
+                        <li><a class="dropdown-item py-2 text-danger" href="#" onclick="logout(); return false;">
+                            <i class="bi bi-box-arrow-right me-2"></i> Sair
+                        </a></li>
+                    </ul>
+                </div>
+                <a href="agendamento.html" class="btn btn-gradient rounded-pill d-none d-lg-flex align-items-center gap-2 px-4">
+                    <i class="bi bi-calendar-heart"></i> 
+                    <span>Agendar</span>
+                </a>
+            `;
+        } else {
+            // Usuário não logado - mostrar botões de login/cadastro
+            userMenu.innerHTML = `
+                <a href="login.html" class="btn btn-outline-pink rounded-pill px-4 py-2">
+                    <i class="bi bi-box-arrow-in-right"></i> Entrar
+                </a>
+                <a href="cadastro.html" class="btn btn-gradient rounded-pill px-4 py-2">
+                    <i class="bi bi-person-plus"></i> Cadastrar
+                </a>
+            `;
+        }
+    }
+    
+    // Função global de logout
+    window.logout = function() {
+        // Remover dados de autenticação
+        localStorage.removeItem('bloom_token');
+        localStorage.removeItem('bloom_user');
+        localStorage.removeItem('bloom_user_id');
+        sessionStorage.removeItem('bloom_token');
+        sessionStorage.removeItem('bloom_user');
+        sessionStorage.removeItem('bloom_user_id');
+        
+        // Mostrar mensagem
+        if (window.showToast) {
+            window.showToast('Logout realizado com sucesso!', 'success');
+        } else {
+            alert('Logout realizado com sucesso!');
+        }
+        
+        // Redirecionar para home
+        window.location.href = 'index.html';
+    };
+    
+    // Função global de verificação de login
+    window.isLoggedIn = function() {
+        const token = localStorage.getItem('bloom_token') || sessionStorage.getItem('bloom_token');
+        return !!token;
+    };
+    
+    // Inicializar quando o DOM estiver pronto
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', updateNavbarAuth);
+    } else {
+        updateNavbarAuth();
+    }
+    
+    // Escutar mudanças no storage (para múltiplas abas)
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'bloom_token' || e.key === 'bloom_user') {
+            updateNavbarAuth();
+        }
+    });
+})();
+</script>
+
+<style>
+    /* Estilos específicos da navbar */
+    .navbar {
+        transition: all 0.3s ease;
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+    
+    .navbar-scrolled {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+    }
+    
+    .navbar-nav .nav-link {
+        position: relative;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+    }
+    
+    .navbar-nav .nav-link:hover {
+        background-color: #ffe4ec;
+        color: #ff6b9d !important;
+        transform: translateY(-2px);
+    }
+    
+    .navbar-nav .nav-link.active {
+        background: linear-gradient(135deg, #ffe4ec, #f5eef5);
+        color: #ff6b9d !important;
+    }
+    
+    .navbar-nav .nav-link.active::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 30px;
+        height: 3px;
+        background: linear-gradient(135deg, #ff6b9d, #c8a2c8);
+        border-radius: 3px;
+    }
+    
+    .dropdown-menu {
+        animation: dropdownSlide 0.2s ease;
+    }
+    
+    @keyframes dropdownSlide {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .dropdown-item {
+        transition: all 0.2s ease;
+        border-radius: 10px;
+    }
+    
+    .dropdown-item:hover {
+        background-color: #ffe4ec;
+        color: #ff6b9d;
+        transform: translateX(5px);
+    }
+    
+    @media (max-width: 991.98px) {
+        .navbar-nav {
+            padding: 1rem 0;
+        }
+        
+        .navbar-nav .nav-link {
+            display: inline-block;
+            margin: 0.25rem 0;
+        }
+        
+        .navbar-nav .nav-link.active::after {
+            display: none;
+        }
+        
+        #userMenu {
+            margin-top: 1rem;
+            justify-content: center;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .navbar-brand {
+            font-size: 1.35rem !important;
+        }
+        
+        .btn-outline-pink,
+        .btn-gradient {
+            padding: 0.4rem 1rem !important;
+            font-size: 0.85rem;
+        }
+    }
+</style>
+
+    <main>
+        <!-- Header -->
+        <section class="page-header bg-gradient-pink text-white py-5">
+            <div class="container text-center">
+                <i class="bi bi-geo-alt-fill fs-1 mb-3"></i>
+                <h1 class="display-3 fw-bold">Nossas <span class="text-warning">Unidades</span></h1>
+                <p class="lead">Atendimento de excelência em localizações privilegiadas em São Paulo</p>
+            </div>
+        </section>
+
+        <!-- Mapa Geral com todas as unidades -->
+        <section class="map-section py-4">
+            <div class="container-fluid px-0">
+                <div id="mainMap" style="height: 500px; width: 100%;"></div>
+            </div>
+        </section>
+
+        <!-- Cards das Unidades -->
+        <section class="units-section py-5">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="display-4 fw-bold">Conheça nossas <span class="text-gradient">Unidades</span></h2>
+                    <p class="lead">Estrutura moderna, conforto e localização privilegiada</p>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Unidade Paulista -->
+                    <div class="col-md-4">
+                        <div class="unit-card h-100 border-0 shadow-lg rounded-4 overflow-hidden transition">
+                            <div class="unit-image position-relative">
+                                <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                                    alt="Unidade Paulista" class="img-fluid w-100"
+                                    style="height: 250px; object-fit: cover;">
+                                <span class="badge bg-pink position-absolute top-0 end-0 m-3 rounded-pill px-3 py-2">
+                                    <i class="bi bi-star-fill"></i> Matriz
+                                </span>
+                            </div>
+                            <div class="card-body p-4">
+                                <h3 class="fw-bold mb-2"><i class="bi bi-building text-pink"></i> Unidade Paulista</h3>
+                                <p class="text-muted mb-3"><i class="bi bi-geo-alt"></i> Av. Paulista, 1000 - Bela
+                                    Vista, São Paulo - SP, 01310-100</p>
+
+                                <div class="unit-info mb-3">
+                                    <div class="row g-2">
+                                        <div class="col-6">
+                                            <div class="info-item bg-light-pink rounded-3 p-2 text-center">
+                                                <i class="bi bi-telephone text-pink"></i>
+                                                <small class="d-block">(11) 3333-1111</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="info-item bg-light-pink rounded-3 p-2 text-center">
+                                                <i class="bi bi-clock text-pink"></i>
+                                                <small class="d-block">Seg-Sex: 8h-20h</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="services-list mt-3">
+                                    <p class="fw-semibold mb-2"><i class="bi bi-check-circle-fill text-success"></i>
+                                        Serviços disponíveis:</p>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <span class="badge bg-light-pink text-dark rounded-pill">Consultas</span>
+                                        <span class="badge bg-light-pink text-dark rounded-pill">Exames</span>
+                                        <span class="badge bg-light-pink text-dark rounded-pill">Ultrassonografia</span>
+                                        <span class="badge bg-light-pink text-dark rounded-pill">Telemedicina</span>
+                                        <span class="badge bg-light-pink text-dark rounded-pill">Pré-natal</span>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4">
+                                    <button class="btn btn-gradient rounded-pill w-100 mb-2"
+                                        onclick="showMapModal('paulista')">
+                                        <i class="bi bi-map"></i> Ver no mapa
+                                    </button>
+                                    <button class="btn btn-outline-pink rounded-pill w-100"
+                                        onclick="agendarNaUnidade('Paulista')">
+                                        <i class="bi bi-calendar-heart"></i> Agendar nesta unidade
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Unidade Morumbi -->
+                    <div class="col-md-4">
+                        <div class="unit-card h-100 border-0 shadow-lg rounded-4 overflow-hidden transition">
+                            <div class="unit-image">
+                                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                                    alt="Unidade Morumbi" class="img-fluid w-100"
+                                    style="height: 250px; object-fit: cover;">
+                            </div>
+                            <div class="card-body p-4">
+                                <h3 class="fw-bold mb-2"><i class="bi bi-building text-pink"></i> Unidade Morumbi</h3>
+                                <p class="text-muted mb-3"><i class="bi bi-geo-alt"></i> Av. Morumbi, 5000 - Morumbi,
+                                    São Paulo - SP, 05650-000</p>
+
+                                <div class="unit-info mb-3">
+                                    <div class="row g-2">
+                                        <div class="col-6">
+                                            <div class="info-item bg-light-pink rounded-3 p-2 text-center">
+                                                <i class="bi bi-telephone text-pink"></i>
+                                                <small class="d-block">(11) 3333-2222</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="info-item bg-light-pink rounded-3 p-2 text-center">
+                                                <i class="bi bi-clock text-pink"></i>
+                                                <small class="d-block">Seg-Sex: 8h-19h</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="services-list mt-3">
+                                    <p class="fw-semibold mb-2"><i class="bi bi-check-circle-fill text-success"></i>
+                                        Serviços disponíveis:</p>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <span class="badge bg-light-pink text-dark rounded-pill">Consultas</span>
+                                        <span class="badge bg-light-pink text-dark rounded-pill">Exames</span>
+                                        <span class="badge bg-light-pink text-dark rounded-pill">Ultrassom 3D/4D</span>
+                                        <span class="badge bg-light-pink text-dark rounded-pill">Cardiotocografia</span>
+                                        <span class="badge bg-light-pink text-dark rounded-pill">Parto humanizado</span>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4">
+                                    <button class="btn btn-gradient rounded-pill w-100 mb-2"
+                                        onclick="showMapModal('morumbi')">
+                                        <i class="bi bi-map"></i> Ver no mapa
+                                    </button>
+                                    <button class="btn btn-outline-pink rounded-pill w-100"
+                                        onclick="agendarNaUnidade('Morumbi')">
+                                        <i class="bi bi-calendar-heart"></i> Agendar nesta unidade
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Unidade Tatuapé -->
+                    <div class="col-md-4">
+                        <div class="unit-card h-100 border-0 shadow-lg rounded-4 overflow-hidden transition">
+                            <div class="unit-image">
+                                <img src="https://images.unsplash.com/photo-1516549655169-df83a0774510?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                                    alt="Unidade Tatuapé" class="img-fluid w-100"
+                                    style="height: 250px; object-fit: cover;">
+                            </div>
+                            <div class="card-body p-4">
+                                <h3 class="fw-bold mb-2"><i class="bi bi-building text-pink"></i> Unidade Tatuapé</h3>
+                                <p class="text-muted mb-3"><i class="bi bi-geo-alt"></i> Rua Itapura, 300 - Tatuapé, São
+                                    Paulo - SP, 03310-000</p>
+
+                                <div class="unit-info mb-3">
+                                    <div class="row g-2">
+                                        <div class="col-6">
+                                            <div class="info-item bg-light-pink rounded-3 p-2 text-center">
+                                                <i class="bi bi-telephone text-pink"></i>
+                                                <small class="d-block">(11) 3333-3333</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="info-item bg-light-pink rounded-3 p-2 text-center">
+                                                <i class="bi bi-clock text-pink"></i>
+                                                <small class="d-block">Seg-Sáb: 8h-18h</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="services-list mt-3">
+                                    <p class="fw-semibold mb-2"><i class="bi bi-check-circle-fill text-success"></i>
+                                        Serviços disponíveis:</p>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <span class="badge bg-light-pink text-dark rounded-pill">Consultas</span>
+                                        <span class="badge bg-light-pink text-dark rounded-pill">Exames de sangue</span>
+                                        <span class="badge bg-light-pink text-dark rounded-pill">Curva glicêmica</span>
+                                        <span class="badge bg-light-pink text-dark rounded-pill">Nutrição</span>
+                                        <span class="badge bg-light-pink text-dark rounded-pill">Psicologia</span>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4">
+                                    <button class="btn btn-gradient rounded-pill w-100 mb-2"
+                                        onclick="showMapModal('tatuape')">
+                                        <i class="bi bi-map"></i> Ver no mapa
+                                    </button>
+                                    <button class="btn btn-outline-pink rounded-pill w-100"
+                                        onclick="agendarNaUnidade('Tatuapé')">
+                                        <i class="bi bi-calendar-heart"></i> Agendar nesta unidade
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Galeria de Fotos das Unidades -->
+        <section class="gallery-section py-5 bg-light">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="display-4 fw-bold"><span class="text-gradient">Galeria</span> de Fotos</h2>
+                    <p class="lead">Conheça nossas instalações</p>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="gallery-item rounded-4 overflow-hidden shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                                alt="Recepção" class="img-fluid w-100" style="height: 250px; object-fit: cover;">
+                            <div class="gallery-overlay">
+                                <span class="text-white">Recepção aconchegante</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="gallery-item rounded-4 overflow-hidden shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                                alt="Consultório" class="img-fluid w-100" style="height: 250px; object-fit: cover;">
+                            <div class="gallery-overlay">
+                                <span class="text-white">Consultório equipado</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="gallery-item rounded-4 overflow-hidden shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1584432810601-6c7f27d2362b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                                alt="Sala de Ultrassom" class="img-fluid w-100"
+                                style="height: 250px; object-fit: cover;">
+                            <div class="gallery-overlay">
+                                <span class="text-white">Sala de Ultrassom</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="gallery-item rounded-4 overflow-hidden shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1516549655169-df83a0774510?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                                alt="Laboratório" class="img-fluid w-100" style="height: 250px; object-fit: cover;">
+                            <div class="gallery-overlay">
+                                <span class="text-white">Laboratório de análises</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="gallery-item rounded-4 overflow-hidden shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                                alt="Sala de Espera" class="img-fluid w-100" style="height: 250px; object-fit: cover;">
+                            <div class="gallery-overlay">
+                                <span class="text-white">Sala de espera</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="gallery-item rounded-4 overflow-hidden shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1516069677018-3782e5a2c0ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                                alt="Setor de Exames" class="img-fluid w-100" style="height: 250px; object-fit: cover;">
+                            <div class="gallery-overlay">
+                                <span class="text-white">Setor de exames</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Horários de Atendimento -->
+        <section class="schedule-section py-5">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6">
+                        <h2 class="display-4 fw-bold mb-4">Horários de <span class="text-gradient">Atendimento</span>
+                        </h2>
+                        <div class="schedule-table bg-white rounded-4 shadow-sm overflow-hidden">
+                            <table class="table table-borderless mb-0">
+                                <thead class="bg-gradient-pink text-white">
+                                    <tr>
+                                        <th class="p-3">Dia da Semana</th>
+                                        <th class="p-3">Horário</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-bottom">
+                                        <td class="p-3 fw-semibold">Segunda-feira</td>
+                                        <td class="p-3">08:00 - 20:00</td>
+                                    </tr>
+                                    <tr class="border-bottom">
+                                        <td class="p-3 fw-semibold">Terça-feira</td>
+                                        <td class="p-3">08:00 - 20:00</td>
+                                    </tr>
+                                    <tr class="border-bottom">
+                                        <td class="p-3 fw-semibold">Quarta-feira</td>
+                                        <td class="p-3">08:00 - 20:00</td>
+                                    </tr>
+                                    <tr class="border-bottom">
+                                        <td class="p-3 fw-semibold">Quinta-feira</td>
+                                        <td class="p-3">08:00 - 20:00</td>
+                                    </tr>
+                                    <tr class="border-bottom">
+                                        <td class="p-3 fw-semibold">Sexta-feira</td>
+                                        <td class="p-3">08:00 - 20:00</td>
+                                    </tr>
+                                    <tr class="border-bottom">
+                                        <td class="p-3 fw-semibold">Sábado</td>
+                                        <td class="p-3">08:00 - 14:00 (Unidade Tatuapé)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 fw-semibold">Domingo</td>
+                                        <td class="p-3">Fechado (Atendimento emergencial via telemedicina)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="emergency-card bg-pink-light rounded-4 p-4 text-center">
+                            <i class="bi bi-shield-check fs-1 text-pink"></i>
+                            <h3 class="fw-bold mt-3">Emergência?</h3>
+                            <p class="mb-3">Em caso de urgências obstétricas fora do horário comercial, atendemos no
+                                Hospital Santa Joana (conveniado) e Hospital Albert Einstein.</p>
+                            <div class="d-flex justify-content-center gap-3">
+                                <a href="tel:192" class="btn btn-danger rounded-pill">
+                                    <i class="bi bi-telephone"></i> SAMU 192
+                                </a>
+                                <a href="tel:1133334444" class="btn btn-gradient rounded-pill">
+                                    <i class="bi bi-headset"></i> Plantão 24h
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Como Chegar (Transporte) -->
+        <section class="transport-section py-5 bg-light">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="display-4 fw-bold">Como <span class="text-gradient">Chegar</span></h2>
+                    <p class="lead text-muted">Opções de transporte para todas as unidades</p>
+                </div>
+
+                <div class="row g-4 justify-content-center">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="transport-card text-center p-4 rounded-4 shadow-sm bg-white h-100">
+                            <i class="bi bi-train-front fs-1 text-pink"></i>
+                            <h5 class="fw-bold mt-3">Metrô</h5>
+                            <p class="text-muted">Unidade Paulista: Estação Paulista (Linha 4-Amarela).<br>Unidade Tatuapé: Estação Tatuapé (Linha 3-Vermelha).</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="transport-card text-center p-4 rounded-4 shadow-sm bg-white h-100">
+                            <i class="bi bi-bus-front fs-1 text-pink"></i>
+                            <h5 class="fw-bold mt-3">Ônibus</h5>
+                            <p class="text-muted">Linhas municipais próximas às unidades, com pontos a poucos minutos da recepção.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="transport-card text-center p-4 rounded-4 shadow-sm bg-white h-100">
+                            <i class="bi bi-car-front fs-1 text-pink"></i>
+                            <h5 class="fw-bold mt-3">Estacionamento</h5>
+                            <p class="text-muted">Todas as unidades possuem estacionamento conveniado com voucher de desconto para pacientes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contato Whatsapp -->
+        <section class="contact-whatsapp py-5 bg-gradient-pink text-white">
+            <div class="container text-center">
+                <i class="bi bi-whatsapp fs-1 mb-3"></i>
+                <h2 class="display-4 fw-bold">Atendimento via WhatsApp</h2>
+                <p class="lead mb-4">Tire dúvidas, agende consultas ou solicite informações pelo WhatsApp</p>
+                <a href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20informações%20sobre%20a%20Bloom%20Maternity"
+                    class="btn btn-light btn-lg rounded-pill px-5 py-3 shadow-lg" target="_blank">
+                    <i class="bi bi-whatsapp"></i> (11) 99999-9999
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- 
+================================================================================
+COMPONENTE: FOOTER - Bloom Maternity
+DESCRIÇÃO: Rodapé completo com informações de contato, links úteis, 
+           redes sociais, newsletter, selos de segurança e copyright.
+================================================================================
+-->
+
+<footer class="footer bg-dark text-white pt-5 pb-4 mt-5">
+    <div class="container">
+        <div class="row g-4">
+            <!-- Coluna 1: Logo e descrição -->
+            <div class="col-lg-4 col-md-6">
+                <div class="footer-brand mb-3">
+                    <h2 class="fw-bold mb-0">
+                        <span class="text-pink">Bloom</span> 
+                        <span class="text-lilac">Maternity</span>
+                    </h2>
+                    <p class="text-white-50 small mt-2">Clínica de Obstetrícia</p>
+                </div>
+                <p class="text-white-50 mb-3" style="line-height: 1.6;">
+                    Cuidando de você do início à maternidade. Excelência em obstetrícia 
+                    com atendimento humanizado e tecnologia de ponta.
+                </p>
+                
+                <!-- Selos de segurança -->
+                <div class="d-flex gap-3 mt-4">
+                    <div class="security-seal text-center">
+                        <i class="bi bi-shield-check fs-3 text-success"></i>
+                        <p class="small mb-0 text-white-50">Ambiente Seguro</p>
+                    </div>
+                    <div class="security-seal text-center">
+                        <i class="bi bi-lock-fill fs-3 text-warning"></i>
+                        <p class="small mb-0 text-white-50">Dados Protegidos</p>
+                    </div>
+                    <div class="security-seal text-center">
+                        <i class="bi bi-award-fill fs-3 text-info"></i>
+                        <p class="small mb-0 text-white-50">Certificado</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Coluna 2: Links rápidos -->
+            <div class="col-lg-2 col-md-6">
+                <h5 class="fw-bold mb-3 text-pink">Links Rápidos</h5>
+                <ul class="list-unstyled footer-links">
+                    <li class="mb-2"><a href="index.html" class="text-white-50 text-decoration-none transition">Home</a></li>
+                    <li class="mb-2"><a href="medicos.html" class="text-white-50 text-decoration-none transition">Médicos</a></li>
+                    <li class="mb-2"><a href="servicos.html" class="text-white-50 text-decoration-none transition">Serviços</a></li>
+                    <li class="mb-2"><a href="agendamento.html" class="text-white-50 text-decoration-none transition">Agendamento</a></li>
+                    <li class="mb-2"><a href="telemedicina.html" class="text-white-50 text-decoration-none transition">Telemedicina</a></li>
+                    <li class="mb-2"><a href="duvidas.html" class="text-white-50 text-decoration-none transition">Dúvidas Frequentes</a></li>
+                </ul>
+            </div>
+            
+            <!-- Coluna 3: Informações institucionais -->
+            <div class="col-lg-2 col-md-6">
+                <h5 class="fw-bold mb-3 text-pink">Institucional</h5>
+                <ul class="list-unstyled footer-links">
+                    <li class="mb-2"><a href="planos.html" class="text-white-50 text-decoration-none transition">Planos de Saúde</a></li>
+                    <li class="mb-2"><a href="unidades.html" class="text-white-50 text-decoration-none transition">Nossas Unidades</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none transition">Trabalhe Conosco</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none transition">Política de Privacidade</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none transition">Termos de Uso</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none transition">LGPD</a></li>
+                </ul>
+            </div>
+            
+            <!-- Coluna 4: Contato e redes sociais -->
+            <div class="col-lg-4 col-md-6">
+                <h5 class="fw-bold mb-3 text-pink">Contato</h5>
+                <ul class="list-unstyled contact-info">
+                    <li class="mb-3 d-flex align-items-center gap-2">
+                        <i class="bi bi-telephone text-pink fs-5"></i>
+                        <span class="text-white-50">(11) 3333-4444</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center gap-2">
+                        <i class="bi bi-whatsapp text-success fs-5"></i>
+                        <span class="text-white-50">(11) 99999-9999</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center gap-2">
+                        <i class="bi bi-envelope text-pink fs-5"></i>
+                        <span class="text-white-50">contato@bloommaternity.com.br</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-center gap-2">
+                        <i class="bi bi-clock-history text-pink fs-5"></i>
+                        <span class="text-white-50">Seg-Sex: 8h às 20h | Sáb: 8h às 14h</span>
+                    </li>
+                </ul>
+                
+                <!-- Redes sociais -->
+                <div class="social-links mt-3">
+                    <h6 class="mb-3 text-white-50">Siga-nos</h6>
+                    <div class="d-flex gap-2">
+                        <a href="#" class="btn-social-footer" aria-label="Instagram">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="#" class="btn-social-footer" aria-label="Facebook">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="#" class="btn-social-footer" aria-label="WhatsApp">
+                            <i class="bi bi-whatsapp"></i>
+                        </a>
+                        <a href="#" class="btn-social-footer" aria-label="YouTube">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                        <a href="#" class="btn-social-footer" aria-label="LinkedIn">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <hr class="my-4 bg-secondary opacity-25">
+        
+        <!-- Newsletter -->
+        <div class="row mb-4">
+            <div class="col-lg-8 mx-auto text-center">
+                <h5 class="fw-bold mb-3 text-pink">Receba novidades e dicas de saúde</h5>
+                <p class="text-white-50 small mb-3">Inscreva-se para receber conteúdos exclusivos sobre cuidados na gestação e saúde da mulher</p>
+                <div class="input-group justify-content-center flex-wrap gap-2">
+                    <input type="email" class="form-control rounded-pill w-75 w-md-auto" 
+                           placeholder="Seu melhor e-mail" id="newsletterEmail"
+                           style="max-width: 350px;">
+                    <button class="btn btn-gradient rounded-pill px-4" onclick="subscribeNewsletter()">
+                        <i class="bi bi-send"></i> Assinar
+                    </button>
+                </div>
+                <p class="small text-white-50 mt-2">
+                    <i class="bi bi-shield-check"></i> Seu e-mail está seguro. Não enviamos spam.
+                </p>
+            </div>
+        </div>
+        
+        <hr class="my-4 bg-secondary opacity-25">
+        
+        <!-- Copyright e formas de pagamento -->
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center text-md-start">
+                <p class="text-white-50 small mb-0">
+                    &copy; 2024 Bloom Maternity - Clínica de Obstetrícia. 
+                    <br class="d-md-none">Todos os direitos reservados.
+                </p>
+            </div>
+            <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+                <div class="payment-methods d-flex justify-content-center justify-content-md-end gap-2 flex-wrap">
+                    <span class="badge bg-dark text-white-50 border px-3 py-2 rounded-pill">
+                        <i class="bi bi-credit-card"></i> Visa
+                    </span>
+                    <span class="badge bg-dark text-white-50 border px-3 py-2 rounded-pill">
+                        <i class="bi bi-credit-card"></i> Mastercard
+                    </span>
+                    <span class="badge bg-dark text-white-50 border px-3 py-2 rounded-pill">
+                        <i class="bi bi-barcode"></i> Boleto
+                    </span>
+                    <span class="badge bg-dark text-white-50 border px-3 py-2 rounded-pill">
+                        <i class="bi bi-qr-code"></i> PIX
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Créditos do desenvolvedor -->
+        <div class="row mt-4">
+            <div class="col-12 text-center">
+                <p class="small text-white-50 opacity-50 mb-0">
+                    Desenvolvido com <i class="bi bi-heart-fill text-danger"></i> para cuidar de você e do seu bebê
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+    .footer {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #ff6b9d, #c8a2c8);
+    }
+    
+    .footer-links a {
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+    
+    .footer-links a:hover {
+        color: #ff6b9d !important;
+        transform: translateX(5px);
+    }
+    
+    .btn-social-footer {
+        width: 38px;
+        height: 38px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+    
+    .btn-social-footer:hover {
+        background: #ff6b9d;
+        color: white;
+        transform: translateY(-3px);
+    }
+    
+    .contact-info li {
+        transition: all 0.3s ease;
+    }
+    
+    .contact-info li:hover {
+        transform: translateX(5px);
+    }
+    
+    .security-seal {
+        transition: all 0.3s ease;
+    }
+    
+    .security-seal:hover {
+        transform: translateY(-3px);
+    }
+    
+    @media (max-width: 768px) {
+        .footer {
+            text-align: center;
+        }
+        
+        .contact-info li {
+            justify-content: center;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .footer-links a:hover {
+            transform: none;
+        }
+    }
+</style>
+
+<script>
+    function subscribeNewsletter() {
+        const email = document.getElementById('newsletterEmail');
+        if (!email) return;
+        
+        const emailValue = email.value.trim();
+        
+        if (!emailValue) {
+            alert('Por favor, informe seu e-mail.');
+            email.focus();
+            return;
+        }
+        
+        if (!isValidEmail(emailValue)) {
+            alert('Por favor, informe um e-mail válido.');
+            email.focus();
+            return;
+        }
+        
+        // Simular envio (em produção, enviaria para API)
+        console.log('Newsletter subscription:', emailValue);
+        
+        alert(`Obrigado por se inscrever! Enviaremos novidades para ${emailValue}`);
+        email.value = '';
+        
+        // Opcional: enviar para API
+        // fetch('/api/newsletter', { method: 'POST', body: JSON.stringify({ email: emailValue }) });
+    }
+    
+    function isValidEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+    
+    // Tornar função global
+    window.subscribeNewsletter = subscribeNewsletter;
+</script>
+
+    <!-- Modal Mapa -->
+    <div class="modal fade" id="mapModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content rounded-4">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold" id="mapModalTitle">Localização</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div id="modalMap" style="height: 400px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/auth.js"></script>
+
+    <script>
+        let mainMap;
+        let modalMap;
+
+        $(document).ready(function () {
+            initMainMap();
+        });
+
+        function initMainMap() {
+            // Coordenadas das unidades
+            const units = {
+                paulista: { lat: -23.5631, lng: -46.6543, name: 'Unidade Paulista' },
+                morumbi: { lat: -23.6004, lng: -46.7206, name: 'Unidade Morumbi' },
+                tatuape: { lat: -23.5393, lng: -46.5762, name: 'Unidade Tatuapé' }
+            };
+
+            mainMap = L.map('mainMap').setView([-23.5631, -46.6543], 12);
+
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(mainMap);
+
+            // Adicionar marcadores
+            for (const [key, unit] of Object.entries(units)) {
+                const marker = L.marker([unit.lat, unit.lng]).addTo(mainMap);
+                marker.bindPopup(`
+                    <div class="text-center">
+                        <strong>${unit.name}</strong><br>
+                        <button class="btn btn-pink btn-sm mt-2" onclick="showMapModal('${key}')">Ver detalhes</button>
+                    </div>
+                `);
+            }
+        }
+
+        function showMapModal(unit) {
+            const coordinates = {
+                paulista: { lat: -23.5631, lng: -46.6543, name: 'Unidade Paulista', address: 'Av. Paulista, 1000 - Bela Vista' },
+                morumbi: { lat: -23.6004, lng: -46.7206, name: 'Unidade Morumbi', address: 'Av. Morumbi, 5000 - Morumbi' },
+                tatuape: { lat: -23.5393, lng: -46.5762, name: 'Unidade Tatuapé', address: 'Rua Itapura, 300 - Tatuapé' }
+            };
+
+            const data = coordinates[unit];
+            document.getElementById('mapModalTitle').innerText = data.name;
+
+            const modal = new bootstrap.Modal(document.getElementById('mapModal'));
+            modal.show();
+
+            setTimeout(() => {
+                if (modalMap) {
+                    modalMap.remove();
+                }
+                modalMap = L.map('modalMap').setView([data.lat, data.lng], 16);
+                L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png').addTo(modalMap);
+                L.marker([data.lat, data.lng]).addTo(modalMap).bindPopup(`
+                    <strong>${data.name}</strong><br>
+                    ${data.address}
+                `).openPopup();
+            }, 500);
+        }
+
+        function agendarNaUnidade(unidade) {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('Por favor, faça login para agendar uma consulta.');
+                window.location.href = 'login.html';
+                return;
+            }
+            window.location.href = `agendamento.html?unidade=${encodeURIComponent(unidade)}`;
+        }
+    </script>
+</body>
+
+</html>

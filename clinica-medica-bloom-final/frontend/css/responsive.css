@@ -1,0 +1,527 @@
+/*
+================================================================================
+ARQUIVO: responsive.css
+PROJETO: Bloom Maternity - Clínica de Obstetrícia
+DESCRIÇÃO: Estilos responsivos para todas as resoluções de tela,
+           incluindo desktop, tablet, mobile landscape e mobile portrait.
+AUTOR: Bloom Maternity Team
+VERSÃO: 1.0.0
+================================================================================
+*/
+
+/* ==================== BREAKPOINTS ====================
+    - 1200px: Desktop Grande (XL)
+    - 992px: Desktop (LG)
+    - 768px: Tablet (MD)
+    - 576px: Mobile Landscape (SM)
+    - 375px: Mobile Portrait (XS)
+   ==================================================== */
+
+/* ==================== DESKTOP GRANDE (XL) - 1200px ==================== */
+@media (max-width: 1199.98px) {
+    /* Ajustes gerais */
+    .container {
+        max-width: var(--container-lg);
+    }
+    
+    /* Hero section */
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+    
+    /* Cards */
+    .doctor-card {
+        width: 280px;
+    }
+    
+    /* Padding sections */
+    section {
+        padding: 60px 0;
+    }
+}
+
+/* ==================== DESKTOP (LG) - 992px ==================== */
+@media (max-width: 991.98px) {
+    /* Container */
+    .container {
+        max-width: var(--container-md);
+    }
+    
+    /* Navegação */
+    .navbar-nav {
+        padding: 1rem 0;
+    }
+    
+    .navbar-nav .nav-link {
+        display: inline-block;
+        margin: 0.25rem 0;
+    }
+    
+    .navbar-nav .nav-link::after {
+        display: none;
+    }
+    
+    /* Hero */
+    .hero-slide {
+        min-height: 80vh;
+    }
+    
+    .hero-content {
+        text-align: center;
+        padding: 2rem;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-buttons {
+        justify-content: center;
+    }
+    
+    /* Sobre */
+    .about-image-grid {
+        margin-top: 2rem;
+    }
+    
+    /* Carrossel de médicos */
+    .doctors-carousel-wrapper {
+        padding: 0 40px;
+    }
+    
+    .doctor-card {
+        width: 260px;
+    }
+    
+    /* Footer */
+    .footer {
+        text-align: center;
+    }
+    
+    .social-links {
+        justify-content: center;
+    }
+}
+
+/* ==================== TABLET (MD) - 768px ==================== */
+@media (max-width: 767.98px) {
+    /* Container */
+    .container {
+        max-width: var(--container-sm);
+        padding: 0 20px;
+    }
+    
+    /* Typography */
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.75rem;
+    }
+    
+    h3 {
+        font-size: 1.5rem;
+    }
+    
+    .lead {
+        font-size: 1rem;
+    }
+    
+    /* Hero */
+    .hero-slide {
+        min-height: 70vh;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        gap: 1rem !important;
+    }
+    
+    .hero-buttons .btn {
+        width: 100%;
+        text-align: center;
+    }
+    
+    /* Carrossel de médicos */
+    .doctors-carousel-wrapper {
+        padding: 0 20px;
+    }
+    
+    .carousel-nav-btn {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .doctor-card {
+        width: 240px;
+    }
+    
+    /* Seções */
+    section {
+        padding: 40px 0;
+    }
+    
+    /* Cards */
+    .service-card,
+    .exam-card,
+    .benefit-card {
+        margin-bottom: 1rem;
+    }
+    
+    /* Progress Steps */
+    .progress-steps::before {
+        top: 15px;
+    }
+    
+    .step-circle {
+        width: 30px;
+        height: 30px;
+        font-size: 0.875rem;
+    }
+    
+    .step-label {
+        font-size: 0.75rem;
+    }
+    
+    /* Modal */
+    .modal-dialog {
+        margin: 1rem;
+    }
+    
+    /* Tabelas */
+    .table-responsive {
+        font-size: 0.875rem;
+    }
+    
+    .table td,
+    .table th {
+        padding: 0.75rem;
+    }
+    
+    /* Formulários */
+    .form-control,
+    .form-select {
+        font-size: 0.875rem;
+    }
+    
+    /* Back to top */
+    .back-to-top {
+        width: 40px;
+        height: 40px;
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+        bottom: 20px;
+        left: 20px;
+    }
+}
+
+/* ==================== MOBILE LANDSCAPE (SM) - 576px ==================== */
+@media (max-width: 575.98px) {
+    /* Container */
+    .container {
+        padding: 0 15px;
+    }
+    
+    /* Hero */
+    .hero-content {
+        padding: 1rem;
+    }
+    
+    .hero-content h1 {
+        font-size: 1.75rem;
+    }
+    
+    .hero-content .lead {
+        font-size: 0.9rem;
+    }
+    
+    /* Botões */
+    .btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.875rem;
+    }
+    
+    .btn-lg {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+    }
+    
+    /* Cards */
+    .doctor-card {
+        width: 280px;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+    
+    /* Carrossel */
+    .doctors-carousel-wrapper {
+        padding: 0 10px;
+    }
+    
+    .carousel-nav-btn {
+        display: none;
+    }
+    
+    /* Títulos de seção */
+    .section-title {
+        margin-bottom: 1.5rem;
+    }
+    
+    /* Footer */
+    .footer .row > div {
+        margin-bottom: 2rem;
+    }
+    
+    .newsletter-input-group {
+        flex-direction: column;
+    }
+    
+    .newsletter-input-group .form-control {
+        border-radius: var(--border-radius-pill);
+        margin-bottom: 0.5rem;
+    }
+    
+    .newsletter-input-group .btn {
+        border-radius: var(--border-radius-pill);
+    }
+    
+    /* Grid */
+    .row.g-4 {
+        --bs-gutter-y: 1rem;
+    }
+    
+    /* Tabelas */
+    .table td,
+    .table th {
+        padding: 0.5rem;
+        font-size: 0.75rem;
+    }
+    
+    /* Timeline */
+    .timeline {
+        padding-left: 30px;
+    }
+    
+    .timeline-icon {
+        width: 30px;
+        height: 30px;
+        left: -30px;
+    }
+    
+    .timeline-icon i {
+        font-size: 0.875rem;
+    }
+    
+    .timeline-content {
+        padding: 10px 15px;
+    }
+    
+    .timeline-content h5 {
+        font-size: 1rem;
+    }
+    
+    /* Accordion */
+    .accordion-button {
+        padding: 0.75rem 1rem;
+        font-size: 0.875rem;
+    }
+    
+    .accordion-body {
+        padding: 1rem;
+        font-size: 0.875rem;
+    }
+    
+    /* Modal */
+    .modal-content {
+        border-radius: var(--border-radius-md);
+    }
+    
+    .modal-header {
+        padding: 1rem;
+    }
+    
+    .modal-body {
+        padding: 1rem;
+    }
+    
+    .modal-footer {
+        padding: 1rem;
+    }
+}
+
+/* ==================== MOBILE PORTRAIT (XS) - 375px ==================== */
+@media (max-width: 374.98px) {
+    /* Hero */
+    .hero-content h1 {
+        font-size: 1.5rem;
+    }
+    
+    /* Botões */
+    .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+    
+    .btn-lg {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.875rem;
+    }
+    
+    /* Cards */
+    .doctor-card {
+        width: 260px;
+    }
+    
+    /* Badges */
+    .badge {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.7rem;
+    }
+    
+    /* Formulários */
+    .form-control,
+    .form-select {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+    
+    /* Step progress */
+    .step-label {
+        display: none;
+    }
+    
+    .progress-steps::before {
+        top: 15px;
+    }
+    
+    /* Footer */
+    .footer-brand h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* ==================== ORIENTAÇÃO PAISAGEM MOBILE ==================== */
+@media (max-width: 767.98px) and (orientation: landscape) {
+    .hero-slide {
+        min-height: 100vh;
+    }
+    
+    .hero-content {
+        padding: 1rem;
+    }
+    
+    .hero-content h1 {
+        font-size: 1.75rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .hero-content .lead {
+        margin-bottom: 1rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: row;
+    }
+    
+    section {
+        padding: 30px 0;
+    }
+}
+
+/* ==================== TABLET E DESKTOP GRANDE ==================== */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .doctor-card {
+        width: 300px;
+    }
+    
+    .container {
+        max-width: 960px;
+    }
+}
+
+/* ==================== TELAS MUITO PEQUENAS ==================== */
+@media (max-width: 280px) {
+    .doctor-card {
+        width: 240px;
+    }
+    
+    .hero-content h1 {
+        font-size: 1.25rem;
+    }
+    
+    .btn {
+        font-size: 0.75rem;
+    }
+}
+
+/* ==================== IMPRESSÃO ==================== */
+@media print {
+    .navbar,
+    .footer,
+    .btn,
+    .whatsapp-float,
+    .back-to-top {
+        display: none !important;
+    }
+    
+    body {
+        padding: 0;
+        margin: 0;
+        font-size: 12pt;
+    }
+    
+    .container {
+        max-width: 100%;
+        padding: 0;
+    }
+    
+    a {
+        text-decoration: none;
+        color: black;
+    }
+}
+
+/* ==================== DARK MODE SUPORTE ==================== */
+@media (prefers-color-scheme: dark) {
+    /* Ajustes opcionais para dark mode do sistema */
+    @media (max-width: 767.98px) {
+        body {
+            /* Mantém o tema claro por padrão */
+        }
+    }
+}
+
+/* ==================== TOQUE ACCURACY (DISPOSITIVOS TOUCH) ==================== */
+@media (hover: none) and (pointer: coarse) {
+    /* Ajustes para dispositivos touch */
+    .btn:active {
+        transform: scale(0.97);
+    }
+    
+    .card:hover {
+        transform: none;
+    }
+    
+    .carousel-nav-btn {
+        display: flex;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .hover-effect {
+        transition: none;
+    }
+}

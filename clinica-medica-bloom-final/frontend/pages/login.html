@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Bloom Maternity</title>
+    
+    <!-- Bootstrap 5 CSS + Icons + Google Fonts -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/theme.css">
+</head>
+<body class="bg-light-gradient">
+    <!-- === NAVBAR SIMPLES PARA PÁGINAS DE AUTENTICAÇÃO === -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-2" href="index.html">
+                <span class="text-pink">Bloom</span> <span class="text-lilac">Maternity</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <!-- === CARD DE LOGIN === -->
+                <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                    <div class="card-header bg-gradient-pink text-white text-center py-4 border-0">
+                        <i class="bi bi-heart-fill fs-1"></i>
+                        <h3 class="mb-0 mt-2 fw-bold">Bem-vinda de volta!</h3>
+                        <p class="mb-0">Faça login para acessar sua conta</p>
+                    </div>
+                    <div class="card-body p-4 p-lg-5">
+                        <!-- Formulário de Login -->
+                        <form id="loginForm">
+                            <!-- Campo E-mail -->
+                            <div class="mb-4">
+                                <label for="email" class="form-label fw-semibold">
+                                    <i class="bi bi-envelope"></i> E-mail
+                                </label>
+                                <input type="email" class="form-control form-control-lg rounded-pill" 
+                                       id="email" name="email" 
+                                       placeholder="seu@email.com" required>
+                                <div class="invalid-feedback">Por favor, informe um e-mail válido.</div>
+                            </div>
+                            
+                            <!-- Campo Senha -->
+                            <div class="mb-4">
+                                <label for="password" class="form-label fw-semibold">
+                                    <i class="bi bi-lock"></i> Senha
+                                </label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control form-control-lg rounded-start-pill" 
+                                           id="password" name="password" 
+                                           placeholder="••••••••" required>
+                                    <button class="btn btn-outline-secondary rounded-end-pill" type="button" id="togglePassword">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </div>
+                                <div class="invalid-feedback">Senha incorreta ou inválida.</div>
+                            </div>
+                            
+                            <!-- Lembrar-me e Esqueci senha -->
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="remember">
+                                    <label class="form-check-label" for="remember">Lembrar de mim</label>
+                                </div>
+                                <a href="#" class="text-pink text-decoration-none" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">
+                                    Esqueceu a senha?
+                                </a>
+                            </div>
+                            
+                            <!-- Botão de Login -->
+                            <button type="submit" class="btn btn-gradient btn-lg w-100 rounded-pill py-3 mb-3 shadow-sm" id="loginBtn">
+                                <i class="bi bi-box-arrow-in-right"></i> Entrar
+                            </button>
+                            
+                            <!-- Divisor -->
+                            <div class="position-relative my-4">
+                                <hr>
+                                <span class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted">ou</span>
+                            </div>
+                            
+                            <!-- Botão de Cadastro -->
+                            <a href="cadastro.html" class="btn btn-outline-pink btn-lg w-100 rounded-pill py-3">
+                                <i class="bi bi-person-plus"></i> Criar nova conta
+                            </a>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Informações adicionais -->
+                <div class="text-center mt-4">
+                    <p class="text-muted">
+                        <i class="bi bi-shield-check"></i> Ambiente seguro e protegido
+                    </p>
+                    <p class="small text-muted">
+                        Ao fazer login, você concorda com nossos <a href="#" class="text-pink">Termos de Uso</a> e <a href="#" class="text-pink">Política de Privacidade</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Esqueci a Senha -->
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold" id="forgotPasswordModalLabel">
+                        <i class="bi bi-envelope-paper"></i> Recuperar senha
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Informe seu e-mail cadastrado e enviaremos instruções para redefinir sua senha.</p>
+                    <input type="email" class="form-control form-control-lg rounded-pill" id="resetEmail" placeholder="seu@email.com">
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-gradient rounded-pill" onclick="sendResetLink()">Enviar link</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS + Custom JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/api.js"></script>
+    
+    <script>
+        // Toggle password visibility
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const icon = this.querySelector('i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            }
+        });
+        
+        // Função para enviar link de redefinição (mock para demonstração)
+        function sendResetLink() {
+            const email = document.getElementById('resetEmail').value;
+            if (email) {
+                alert(`Um link de redefinição foi enviado para ${email}`);
+                bootstrap.Modal.getInstance(document.getElementById('forgotPasswordModal')).hide();
+            } else {
+                alert('Por favor, informe seu e-mail.');
+            }
+        }
+        
+        // Validação do formulário de login
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const remember = document.getElementById('remember').checked;
+            
+            try {
+                // Chama a função de login do auth.js
+                const result = await login(email, password, remember);
+                
+                if (result.success) {
+                    // Redireciona para página inicial após login
+                    window.location.href = 'index.html';
+                } else {
+                    // Mostra erro
+                    alert(result.message || 'Erro ao fazer login. Verifique suas credenciais.');
+                }
+            } catch (error) {
+                console.error('Erro no login:', error);
+                alert('Erro ao conectar com o servidor. Tente novamente mais tarde.');
+            }
+        });
+    </script>
+</body>
+</html>

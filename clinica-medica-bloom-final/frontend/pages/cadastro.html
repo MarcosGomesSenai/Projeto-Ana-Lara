@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro | Bloom Maternity</title>
+    
+    <!-- Bootstrap 5 CSS + Icons + Google Fonts -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/theme.css">
+</head>
+<body class="bg-light-gradient">
+    <!-- NAVBAR SIMPLES -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-2" href="index.html">
+                <span class="text-pink">Bloom</span> <span class="text-lilac">Maternity</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-7">
+                <!-- === CARD DE CADASTRO === -->
+                <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                    <div class="card-header bg-gradient-pink text-white text-center py-4 border-0">
+                        <i class="bi bi-person-plus-fill fs-1"></i>
+                        <h3 class="mb-0 mt-2 fw-bold">Crie sua conta</h3>
+                        <p class="mb-0">Comece sua jornada de cuidado conosco</p>
+                    </div>
+                    <div class="card-body p-4 p-lg-5">
+                        <!-- Formulário de Cadastro com múltiplas etapas -->
+                        <form id="registerForm">
+                            <!-- Etapa 1: Dados Pessoais -->
+                            <div id="step1">
+                                <h5 class="fw-bold mb-3"><span class="text-pink">1.</span> Dados Pessoais</h5>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">
+                                            <i class="bi bi-person"></i> Nome Completo *
+                                        </label>
+                                        <input type="text" class="form-control form-control-lg rounded-pill" 
+                                               id="nome" name="nome" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">
+                                            <i class="bi bi-calendar"></i> Data de Nascimento *
+                                        </label>
+                                        <input type="date" class="form-control form-control-lg rounded-pill" 
+                                               id="data_nascimento" name="data_nascimento" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">
+                                            <i class="bi bi-flag"></i> CPF *
+                                        </label>
+                                        <input type="text" class="form-control form-control-lg rounded-pill" 
+                                               id="cpf" name="cpf" placeholder="123.456.789-00" 
+                                               oninput="formatCPF(this)" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">
+                                            <i class="bi bi-person-arms-up"></i> Gênero
+                                        </label>
+                                        <select class="form-select form-select-lg rounded-pill" id="genero" name="genero">
+                                            <option value="Feminino">Feminino</option>
+                                            <option value="Masculino">Masculino</option>
+                                            <option value="Outro">Outro</option>
+                                            <option value="Prefiro não informar">Prefiro não informar</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <hr class="my-4">
+                                
+                                <h5 class="fw-bold mb-3"><span class="text-pink">2.</span> Contato</h5>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">
+                                            <i class="bi bi-envelope"></i> E-mail *
+                                        </label>
+                                        <input type="email" class="form-control form-control-lg rounded-pill" 
+                                               id="email" name="email" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">
+                                            <i class="bi bi-phone"></i> Telefone *
+                                        </label>
+                                        <input type="tel" class="form-control form-control-lg rounded-pill" 
+                                               id="telefone" name="telefone" placeholder="(11) 99999-9999"
+                                               oninput="formatPhone(this)" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label fw-semibold">
+                                            <i class="bi bi-geo-alt"></i> Endereço Completo
+                                        </label>
+                                        <input type="text" class="form-control form-control-lg rounded-pill" 
+                                               id="endereco" name="endereco" placeholder="Rua, número, complemento">
+                                    </div>
+                                </div>
+                                <hr class="my-4">
+                                
+                                <h5 class="fw-bold mb-3"><span class="text-pink">3.</span> Segurança</h5>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">
+                                            <i class="bi bi-key"></i> Senha *
+                                        </label>
+                                        <input type="password" class="form-control form-control-lg rounded-pill" 
+                                               id="senha" name="senha" required>
+                                        <div class="form-text">Mínimo 6 caracteres</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">
+                                            <i class="bi bi-key-fill"></i> Confirmar Senha *
+                                        </label>
+                                        <input type="password" class="form-control form-control-lg rounded-pill" 
+                                               id="confirmar_senha" name="confirmar_senha" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Termos e Condições -->
+                            <hr class="my-4">
+                            <div class="form-check mb-3">
+                                <input type="checkbox" class="form-check-input" id="termos" required>
+                                <label class="form-check-label" for="termos">
+                                    Li e aceito os <a href="#" class="text-pink">Termos de Uso</a> e <a href="#" class="text-pink">Política de Privacidade</a> *
+                                </label>
+                            </div>
+                            <div class="form-check mb-4">
+                                <input type="checkbox" class="form-check-input" id="comunicacoes">
+                                <label class="form-check-label" for="comunicacoes">
+                                    Desejo receber comunicações sobre saúde e ofertas especiais
+                                </label>
+                            </div>
+                            
+                            <!-- Botões -->
+                            <button type="submit" class="btn btn-gradient btn-lg w-100 rounded-pill py-3 mb-3 shadow-sm">
+                                <i class="bi bi-check-circle"></i> Criar minha conta
+                            </button>
+                            
+                            <div class="text-center">
+                                <p class="mb-0">Já tem uma conta? <a href="login.html" class="text-pink fw-semibold">Faça login</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS + Custom JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/api.js"></script>
+    
+    <script>
+        // Função para formatar CPF
+        function formatCPF(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length <= 11) {
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+                input.value = value;
+            }
+        }
+        
+        // Função para formatar telefone
+        function formatPhone(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length <= 11) {
+                if (value.length > 2) {
+                    value = `(${value.substring(0, 2)}) ${value.substring(2)}`;
+                }
+                if (value.length > 10) {
+                    value = value.replace(/(\(\d{2}\) \d{5})(\d{4})/, '$1-$2');
+                } else if (value.length > 7) {
+                    value = value.replace(/(\(\d{2}\) \d{4})(\d{4})/, '$1-$2');
+                }
+                input.value = value;
+            }
+        }
+        
+        // Validação e envio do formulário de cadastro
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Validação de senhas
+            const senha = document.getElementById('senha').value;
+            const confirmarSenha = document.getElementById('confirmar_senha').value;
+            
+            if (senha !== confirmarSenha) {
+                alert('As senhas não coincidem. Por favor, verifique.');
+                return;
+            }
+            
+            if (senha.length < 6) {
+                alert('A senha deve ter pelo menos 6 caracteres.');
+                return;
+            }
+            
+            // Coleta os dados do formulário
+            const pacienteData = {
+                nome: document.getElementById('nome').value,
+                data_nascimento: document.getElementById('data_nascimento').value,
+                cpf: document.getElementById('cpf').value.replace(/\D/g, ''),
+                genero: document.getElementById('genero').value,
+                email: document.getElementById('email').value,
+                telefone: document.getElementById('telefone').value.replace(/\D/g, ''),
+                endereco: document.getElementById('endereco').value,
+                senha: document.getElementById('senha').value
+            };
+            
+            try {
+                // Chama a função de cadastro do auth.js
+                const result = await register(pacienteData);
+                
+                if (result.success) {
+                    alert('Cadastro realizado com sucesso! Faça login para continuar.');
+                    window.location.href = 'login.html';
+                } else {
+                    alert(result.message || 'Erro ao realizar cadastro. Tente novamente.');
+                }
+            } catch (error) {
+                console.error('Erro no cadastro:', error);
+                alert('Erro ao conectar com o servidor. Tente novamente mais tarde.');
+            }
+        });
+        
+        // Efeito de loading no submit
+        const form = document.getElementById('registerForm');
+        const submitBtn = form.querySelector('button[type="submit"]');
+        
+        form.addEventListener('submit', function() {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> Processando...';
+            setTimeout(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="bi bi-check-circle"></i> Criar minha conta';
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
